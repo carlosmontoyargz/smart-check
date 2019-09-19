@@ -12,6 +12,6 @@ trim_trailing_whitespace = true
 max_line_length = off
 trim_trailing_whitespace = false
 
-[*.java]
+[{*.java, *.xml}]
 tab_width = 4
 indent_style = tab
