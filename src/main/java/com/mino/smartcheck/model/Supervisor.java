@@ -14,5 +14,4 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 public class Supervisor extends Persona
 {
-
 }

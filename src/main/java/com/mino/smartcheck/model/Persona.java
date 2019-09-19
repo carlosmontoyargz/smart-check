@@ -19,7 +19,7 @@ public class Persona
 	private String correo;
 	private String contrasena;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Organizacion organizacion;
 
 	@Override
