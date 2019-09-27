@@ -21,7 +21,7 @@ public class SmartCheck
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Empleado empleado;
+	private Usuario empleado;
 
 	@Column(nullable = false)
 	private LocalDate date;

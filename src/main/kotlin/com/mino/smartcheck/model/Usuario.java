@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public class Persona
+public class Usuario
 {
 	@Id
 	@GeneratedValue
@@ -22,13 +22,16 @@ public class Persona
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Organizacion organizacion;
 
+	@ManyToOne
+	private Rol rol;
+
 	@Override
 	public boolean equals(Object o)
 	{
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		Persona persona = (Persona) o;
+		Usuario persona = (Usuario) o;
 
 		return id != null ? id.equals(persona.id) : persona.id == null;
 	}
