@@ -1,5 +1,7 @@
 package com.mino.smartcheck.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +11,7 @@ import javax.persistence.Id;
  * @since 27/09/2019
  */
 @Entity
+@Data
 public class Privilegio
 {
 	@Id

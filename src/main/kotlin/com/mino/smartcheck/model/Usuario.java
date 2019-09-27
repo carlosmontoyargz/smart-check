@@ -3,6 +3,7 @@ package com.mino.smartcheck.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * @author Carlos Montoya
@@ -32,7 +33,7 @@ public class Usuario
 
 		Usuario persona = (Usuario) o;
 
-		return id != null ? id.equals(persona.id) : persona.id == null;
+		return Objects.equals(id, persona.id);
 	}
 
 	@Override
