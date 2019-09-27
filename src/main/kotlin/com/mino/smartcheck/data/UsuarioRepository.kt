@@ -1,4 +1,4 @@
-package com.mino.smartcheck.repository
+package com.mino.smartcheck.data
 
 import com.mino.smartcheck.model.Usuario
 import org.springframework.data.jpa.repository.JpaRepository

@@ -9,7 +9,6 @@ import javax.persistence.*;
  * @since 18/09/2019
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public class Usuario
 {
