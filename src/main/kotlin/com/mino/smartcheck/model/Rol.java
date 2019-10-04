@@ -20,6 +20,9 @@ public class Rol
 	private String nombre;
 	private String descripcion;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "rol_privilegio",
+			joinColumns = @JoinColumn(name = "rol_id"),
+			inverseJoinColumns = @JoinColumn(name = "privilegio_id"))
 	private Set<Privilegio> privilegios;
 }

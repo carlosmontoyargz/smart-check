@@ -1,6 +1,7 @@
 package com.mino.smartcheck.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,10 +14,12 @@ import java.util.Objects;
  */
 @Entity
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class SmartCheck
 {
 	@Id
 	@GeneratedValue
+	@EqualsAndHashCode.Include
 	private Integer id;
 
 	@ManyToOne
@@ -24,29 +27,12 @@ public class SmartCheck
 	private Usuario empleado;
 
 	@Column(nullable = false)
-	private LocalDate date;
+	private LocalDate fecha;
 
 	@Column(nullable = false)
-	private LocalTime time;
+	private LocalTime hora;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoCheck tipoCheck;
-
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		SmartCheck check = (SmartCheck) o;
-
-		return Objects.equals(id, check.id);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return id != null ? id.hashCode() : 0;
-	}
 }

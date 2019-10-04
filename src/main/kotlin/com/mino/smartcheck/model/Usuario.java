@@ -1,6 +1,7 @@
 package com.mino.smartcheck.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,10 +12,12 @@ import java.util.Objects;
  */
 @Entity
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario
 {
 	@Id
 	@GeneratedValue
+	@EqualsAndHashCode.Include
 	private Integer id;
 	private String correo;
 	private String contrasena;
@@ -24,21 +27,4 @@ public class Usuario
 
 	@ManyToOne
 	private Rol rol;
-
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Usuario persona = (Usuario) o;
-
-		return Objects.equals(id, persona.id);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return id != null ? id.hashCode() : 0;
-	}
 }

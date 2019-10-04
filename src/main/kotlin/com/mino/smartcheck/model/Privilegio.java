@@ -1,6 +1,7 @@
 package com.mino.smartcheck.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +13,12 @@ import javax.persistence.Id;
  */
 @Entity
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Privilegio
 {
 	@Id
 	@GeneratedValue
+	@EqualsAndHashCode.Include
 	private Integer id;
 
 	private String clave;
