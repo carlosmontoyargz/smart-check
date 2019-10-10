@@ -11,7 +11,6 @@ import java.util.Objects;
  * @since 18/09/2019
  */
 @Entity
-@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario
 {
@@ -27,4 +26,54 @@ public class Usuario
 
 	@ManyToOne
 	private Rol rol;
+
+	public Integer getId()
+	{
+		return id;
+	}
+
+	public void setId(Integer id)
+	{
+		this.id = id;
+	}
+
+	public String getCorreo()
+	{
+		return correo;
+	}
+
+	public void setCorreo(String correo)
+	{
+		this.correo = correo;
+	}
+
+	public String getContrasena()
+	{
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena)
+	{
+		this.contrasena = contrasena;
+	}
+
+	public Organizacion getOrganizacion()
+	{
+		return organizacion;
+	}
+
+	public void setOrganizacion(Organizacion organizacion)
+	{
+		this.organizacion = organizacion;
+	}
+
+	public Rol getRol()
+	{
+		return rol;
+	}
+
+	public void setRol(Rol rol)
+	{
+		this.rol = rol;
+	}
 }

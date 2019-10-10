@@ -17,7 +17,7 @@ class WebSecurityConfig
 {
 	override fun configure(http: HttpSecurity?) {
 		http!!.csrf().disable()
-				.addFilterAt(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
+				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/user").permitAll()
 				.anyRequest().authenticated()

@@ -2,6 +2,7 @@ package com.mino.smartcheck.controller
 
 import com.mino.smartcheck.config.SmartCheckProperties
 import com.mino.smartcheck.dto.UsuarioDto
+import com.mino.smartcheck.service.UsuarioService
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,12 +16,20 @@ import java.util.stream.Collectors
 
 @RestController
 class UsuarioController
-	@Autowired constructor(val smartCheckProperties: SmartCheckProperties)
+	@Autowired constructor(
+			val usuarioService: UsuarioService,
+			val smartCheckProperties: SmartCheckProperties)
 {
 	@PostMapping("/user")
 	fun login(@RequestParam("user") username: String,
-			  @RequestParam("password") password: String) =
-			UsuarioDto(user = username, token = getJwtToken(username))
+			  @RequestParam("password") password: String): UsuarioDto?
+	{
+		val usuario = usuarioService.cargarUsuario(username, password)
+		return if (usuario == null) null
+		else UsuarioDto(
+				user = usuario.correo,
+				token = getJwtToken(usuario.correo))
+	}
 
 	private fun getJwtToken(username: String) =
 			"Bearer ${Jwts.builder()
