@@ -10,7 +10,6 @@ import java.util.Set;
  * @since 27/09/2019
  */
 @Entity
-@Data
 public class Rol
 {
 	@Id
@@ -25,4 +24,44 @@ public class Rol
 			joinColumns = @JoinColumn(name = "rol_id"),
 			inverseJoinColumns = @JoinColumn(name = "privilegio_id"))
 	private Set<Privilegio> privilegios;
+
+	public Integer getId()
+	{
+		return id;
+	}
+
+	public void setId(Integer id)
+	{
+		this.id = id;
+	}
+
+	public String getNombre()
+	{
+		return nombre;
+	}
+
+	public void setNombre(String nombre)
+	{
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion()
+	{
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion)
+	{
+		this.descripcion = descripcion;
+	}
+
+	public Set<Privilegio> getPrivilegios()
+	{
+		return privilegios;
+	}
+
+	public void setPrivilegios(Set<Privilegio> privilegios)
+	{
+		this.privilegios = privilegios;
+	}
 }

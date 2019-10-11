@@ -16,10 +16,13 @@ class WebSecurityConfig
 		WebSecurityConfigurerAdapter()
 {
 	override fun configure(http: HttpSecurity?) {
-		http!!.csrf().disable()
-				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
+		http!!
+				.csrf().disable()
+				.addFilterAt(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/user").permitAll()
+				.antMatchers(HttpMethod.POST,
+						"/users/authenticate", "/users/register").permitAll()
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.anyRequest().authenticated()
 	}
 }

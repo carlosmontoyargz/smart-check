@@ -14,4 +14,6 @@ import javax.swing.text.html.Option
 interface UsuarioRepository : JpaRepository<Usuario, Int>
 {
 	fun findByCorreo(correo: String): Optional<Usuario>
+
+	fun existsByCorreo(correo: String): Boolean
 }

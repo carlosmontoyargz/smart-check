@@ -1,0 +1,24 @@
+POST http://localhost:8080/users/authenticate
+Content-Type: application/json
+
+{
+  "username": "carlos.montoya.rdgz@gmail.com",
+  "password": "sipirili"
+}
+
+###
+
+GET http://localhost:8080/users
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJtaW5vSldUIiwic3ViIjoiY2FybG9zLm1vbnRveWEucmRnekBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTcwNzcyOTIwLCJleHAiOjE1NzA3NzM1MjB9.PyVrE_OuB_07_8W8ftMVeeV3Wg39LcaMKkauac1X84u7ZzBV58vx43ewA5ZK0MLYkSZthgxsBCfS8wOrNYfN8Q
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "rodrigo.cespedes@outlook.com",
+  "password": "pass123"
+}
+
+###

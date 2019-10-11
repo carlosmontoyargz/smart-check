@@ -1,10 +1,37 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import './content/app.less';
+import {AuthenticationService} from "./services/authentication.service";
+import {User} from "./models/user";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+	title = 'app';
+	currentUser: User;
+
+	constructor(
+			private router: Router,
+			private authenticationService: AuthenticationService
+	) {
+		localStorage.setItem('users', JSON.stringify(
+				[{
+					id: '1',
+					username: 'carlos',
+					password: 'sipirili',
+					firstName: 'carlos',
+					lastName: 'montoya',
+					token: ''
+				}]));
+		this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+	}
+
+	logout() {
+		this.authenticationService.logout();
+		this.router.navigate(['/login']);
+	}
 }

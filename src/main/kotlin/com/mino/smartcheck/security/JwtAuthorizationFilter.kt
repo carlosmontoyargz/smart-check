@@ -17,8 +17,7 @@ import java.lang.Exception
 
 @Component
 class JwtAuthorizationFilter
-	@Autowired constructor(val smartCheckProperties: SmartCheckProperties):
-		OncePerRequestFilter()
+	@Autowired constructor(val smartCheckProperties: SmartCheckProperties): OncePerRequestFilter()
 {
 	private val header = "Authorization"
 	private val prefix = "Bearer "
