@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {LocationStrategy, HashLocationStrategy, PathLocationStrategy} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
@@ -40,6 +40,11 @@ import {AppRoutingModule} from './app.routing';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {ChartsModule} from 'ng2-charts';
+/*import {ReactiveFormsModule} from "@angular/forms";*/
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AlertLoginComponent} from "./component/alert-login/alert-login.component";
+import {JwtInterceptor} from "./helpers/jwt.interceptor";
+import {ErrorInterceptor} from "./helpers/error.interceptor";
 
 @NgModule({
 	imports: [
@@ -54,7 +59,9 @@ import {ChartsModule} from 'ng2-charts';
 		PerfectScrollbarModule,
 		BsDropdownModule.forRoot(),
 		TabsModule.forRoot(),
-		ChartsModule
+		ChartsModule,
+		/*ReactiveFormsModule,*/
+		HttpClientModule
 	],
 	declarations: [
 		AppComponent,
@@ -62,10 +69,13 @@ import {ChartsModule} from 'ng2-charts';
 		P404Component,
 		P500Component,
 		LoginComponent,
-		RegisterComponent
+		RegisterComponent,
+		AlertLoginComponent
 	],
 	providers: [
-			/*{ provide: LocationStrategy, useClass: HashLocationStrategy }*/
+		{ provide: LocationStrategy, useClass: PathLocationStrategy},
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 	],
 	bootstrap: [AppComponent]
 })
