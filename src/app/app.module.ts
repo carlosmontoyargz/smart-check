@@ -1,5 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {LocationStrategy, HashLocationStrategy, PathLocationStrategy} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -45,6 +45,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AlertLoginComponent} from "./component/alert-login/alert-login.component";
 import {JwtInterceptor} from "./helpers/jwt.interceptor";
 import {ErrorInterceptor} from "./helpers/error.interceptor";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
 	imports: [
@@ -61,7 +62,8 @@ import {ErrorInterceptor} from "./helpers/error.interceptor";
 		TabsModule.forRoot(),
 		ChartsModule,
 		/*ReactiveFormsModule,*/
-		HttpClientModule
+		HttpClientModule,
+		ReactiveFormsModule
 	],
 	declarations: [
 		AppComponent,
