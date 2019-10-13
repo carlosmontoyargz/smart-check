@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "../../services/authentication.service";
 import {UserService} from "../../services/user.service";
 import {AlertService} from "../../services/alert.service";
-import {first} from "rxjs/operators";
+import {first, map} from "rxjs/operators";
 
 @Component({
 	selector: 'app-dashboard',
@@ -49,20 +49,20 @@ export class RegisterComponent implements OnInit {
 		// stop here if form is invalid
 		if (this.registerForm.invalid) {
 			console.log('La forma tiene valores invalidos');
-			console.log(this.registerForm.errors);
 			return;
 		}
 
 		this.loading = true;
-		this.userService.register(this.registerForm.value)
-				.pipe(first())
+		this.userService
+				.register(this.registerForm.value)
 				.subscribe(
-						data => {
-							console.log('El registro fue exitoso');
-							this.alertService.success('Registration successful', true);
+						res => {
+							console.log('Registro de usuario exitoso!');
 							this.router.navigate(['/login']);
 						},
 						error => {
+							console.log('Ocurrio un error al registrar el usuario: ' + error);
+
 							this.alertService.error(error);
 							this.loading = false;
 						});

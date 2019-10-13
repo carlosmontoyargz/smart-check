@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../models/user";
 import {environment} from "../../environments/environment";
+import {Rol} from "../models/rol";
 
 
 /**
@@ -19,6 +20,7 @@ export class UserService {
 
 	register(user: User) {
 		console.log('Entre a subir el usuario al web service');
+		user.rolNombre = "ROL_USER";
 		return this.http.post(`${environment.apiUrl}/users/register`, user);
 	}
 

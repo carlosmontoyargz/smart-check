@@ -15,6 +15,9 @@ class UsuarioServiceImpl
 {
 	override fun obtenerTodos(): List<Usuario> = usuarioRepository.findAll()
 
+	override fun obtenerUsuario(id: Int): Usuario? =
+			usuarioRepository.findById(id).orElse(null)
+
 	override fun obtenerUsuario(username: String, password: String): Usuario?
 	{
 		val usuario = usuarioRepository
@@ -24,7 +27,7 @@ class UsuarioServiceImpl
 	}
 
 	@Throws(SignUpException::class)
-	override fun registrarUsuario(usuario: Usuario)
+	override fun registrarUsuario(usuario: Usuario): Usuario
 	{
 		if (usuarioRepository.existsByCorreo(usuario.correo))
 			throw SignUpException("El usuario ya existe")
@@ -33,6 +36,6 @@ class UsuarioServiceImpl
 				.findByNombre(usuario.rol.nombre)
 				.orElseThrow { SignUpException("No existe el rol especificado") }
 
-		usuarioRepository.save(usuario)
+		return usuarioRepository.save(usuario)
 	}
 }
