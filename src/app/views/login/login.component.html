@@ -20,9 +20,13 @@
                            autocomplete="username"
                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
                            required>
-                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                      <div *ngIf="f.username.errors.required">Username is required</div>
-                    </div>
+                    <!--<div *ngIf="submitted && f.username.errors">
+                      <div *ngIf="f.username.errors.required">
+                        <alert type="danger">
+                          <strong>Oh no!</strong> El correo es requerido
+                        </alert>
+                      </div>
+                    </div>-->
                   </div>
                   <div class="input-group mb-4">
                     <div class="input-group-prepend">
@@ -35,16 +39,15 @@
                            autocomplete="current-password"
                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
                            required>
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <!--<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                       <div *ngIf="f.password.errors.required">Password is required</div>
-                    </div>
+                    </div>-->
                   </div>
                   <div class="row">
                     <div class="col-6">
                       <button type="submit"
                               class="btn btn-primary px-4"
                               [disabled]="loading">
-                        <!--<span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>-->
                         Iniciar sesión
                       </button>
                     </div>

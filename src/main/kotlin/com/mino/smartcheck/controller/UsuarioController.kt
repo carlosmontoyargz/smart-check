@@ -31,8 +31,7 @@ class UsuarioController
 							username = usuario.correo,
 							password = usuario.contrasena,
 							firstName = usuario.correo + " nombre",
-							lastName = usuario.correo + " apellido")
-					}
+							lastName = usuario.correo + " apellido") }
 
 	@PostMapping("/authenticate")
 	fun login(@RequestBody request: UsuarioDto): UsuarioDto?

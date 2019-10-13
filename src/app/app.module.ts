@@ -42,10 +42,10 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
 import {ChartsModule} from 'ng2-charts';
 /*import {ReactiveFormsModule} from "@angular/forms";*/
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AlertLoginComponent} from "./component/alert-login/alert-login.component";
 import {JwtInterceptor} from "./helpers/jwt.interceptor";
 import {ErrorInterceptor} from "./helpers/error.interceptor";
 import {ReactiveFormsModule} from "@angular/forms";
+import {AlertModule} from "ngx-bootstrap";
 
 @NgModule({
 	imports: [
@@ -63,7 +63,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 		ChartsModule,
 		/*ReactiveFormsModule,*/
 		HttpClientModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		AlertModule
 	],
 	declarations: [
 		AppComponent,
@@ -72,7 +73,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 		P500Component,
 		LoginComponent,
 		RegisterComponent,
-		AlertLoginComponent
 	],
 	providers: [
 		{ provide: LocationStrategy, useClass: PathLocationStrategy},

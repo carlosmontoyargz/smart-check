@@ -18,6 +18,7 @@ export class UserService {
 	}
 
 	register(user: User) {
+		console.log('Entre a subir el usuario al web service');
 		return this.http.post(`${environment.apiUrl}/users/register`, user);
 	}
 

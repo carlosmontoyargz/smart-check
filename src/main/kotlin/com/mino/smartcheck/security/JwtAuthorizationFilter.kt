@@ -22,7 +22,8 @@ class JwtAuthorizationFilter
 	private val header = "Authorization"
 	private val prefix = "Bearer "
 
-	override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
+	override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain)
+	{
 		try {
 			if (existeJWTToken(request, response)) {
 				val claims = validateToken(request)
