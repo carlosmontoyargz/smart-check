@@ -3,12 +3,11 @@ package com.mino.smartcheck.dto
 import org.jetbrains.annotations.NotNull
 import javax.validation.constraints.Email
 
-data class UsuarioDto
+open class UsuarioDto
 (
 	@NotNull
 	@Email
 	var username: String? = null,
-
 	@NotNull
 	var password: String? = null,
 	var firstName: String? = "",

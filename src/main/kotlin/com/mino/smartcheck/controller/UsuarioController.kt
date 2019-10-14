@@ -8,6 +8,7 @@ import com.mino.smartcheck.model.Usuario
 import com.mino.smartcheck.service.UsuarioService
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.authority.AuthorityUtils
@@ -23,6 +24,7 @@ import javax.validation.Valid
 class UsuarioController
 	@Autowired constructor(
 			val usuarioService: UsuarioService,
+			val modelMapper: ModelMapper,
 			val smartCheckProperties: SmartCheckProperties)
 {
 	@GetMapping("/{id}") // FIXME retornar DTO

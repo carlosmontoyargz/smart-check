@@ -120,7 +120,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
@@ -132,15 +132,15 @@
 						</goals>
 					</execution>
 				</executions>
-				<!--<configuration>
+				<configuration>
 					<executable>ng</executable>
 					<workingDirectory>.</workingDirectory>
 					<arguments>
 						<argument>build</argument>
 						<argument>&#45;&#45;prod</argument>
 					</arguments>
-				</configuration>-->
-			</plugin>
+				</configuration>
+			</plugin>-->
 		</plugins>
 	</build>
 
