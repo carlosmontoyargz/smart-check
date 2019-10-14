@@ -64,4 +64,15 @@ public class Rol
 	{
 		this.privilegios = privilegios;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Rol{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", privilegios=" + privilegios +
+				'}';
+	}
 }

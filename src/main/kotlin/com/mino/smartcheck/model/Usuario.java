@@ -76,4 +76,16 @@ public class Usuario
 	{
 		this.rol = rol;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Usuario{" +
+				"id=" + id +
+				", correo='" + correo + '\'' +
+				", contrasena='" + contrasena + '\'' +
+				", organizacion=" + organizacion +
+				", rol=" + rol +
+				'}';
+	}
 }

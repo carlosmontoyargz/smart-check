@@ -11,7 +11,7 @@ import javax.swing.text.html.Option
  * @since 18/09/2019
  */
 @RepositoryRestResource(path = "personas", collectionResourceRel = "personas")
-interface UsuarioRepository : JpaRepository<Usuario, Int>
+interface UsuarioRepository: JpaRepository<Usuario, Int>
 {
 	fun findByCorreo(correo: String): Optional<Usuario>
 
