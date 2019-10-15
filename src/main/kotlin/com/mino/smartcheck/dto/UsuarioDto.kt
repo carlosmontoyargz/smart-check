@@ -4,21 +4,20 @@ import org.jetbrains.annotations.NotNull
 import javax.validation.constraints.Email
 
 open class UsuarioDto
-(
+{
 	@NotNull
 	@Email
-	var username: String? = null,
+	var username: String? = null
+
 	@NotNull
-	var password: String? = null,
-	var firstName: String? = "",
-	var lastName: String? = "",
-	var token: String? = null,
+	open var password: String? = null
+
+	var firstName: String? = ""
+	var lastName: String? = ""
+	var token: String? = null
 	var rolNombre: String? = null
-)
-/*
-data class RolDto
-(
-	var nombre: String? = "",
-	var descripcion: String? = ""
-)
-*/
+
+	override fun toString(): String {
+		return "UsuarioDto(username=$username, password=$password, firstName=$firstName, lastName=$lastName, token=$token, rolNombre=$rolNombre)"
+	}
+}

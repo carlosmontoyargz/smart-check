@@ -1,0 +1,28 @@
+POST http://localhost:8080/users/authenticate
+Content-Type: application/json
+
+{
+  "username": "carlos.montoya.rdgz@gmail.com",
+  "password": "sipirili"
+}
+
+###
+
+GET http://localhost:8080/users/22
+
+###
+
+GET http://localhost:8080/users
+
+###
+
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "username": "dewey@outlook.com",
+  "password": "23231423",
+  "rolNombre": "ROL_USER"
+}
+
+###

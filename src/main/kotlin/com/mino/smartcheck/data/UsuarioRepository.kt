@@ -13,7 +13,7 @@ import javax.swing.text.html.Option
 @RepositoryRestResource(path = "personas", collectionResourceRel = "personas")
 interface UsuarioRepository: JpaRepository<Usuario, Int>
 {
-	fun findByCorreo(correo: String): Optional<Usuario>
+	fun findByUsername(username: String): Optional<Usuario>
 
-	fun existsByCorreo(correo: String): Boolean
+	fun existsByUsername(username: String): Boolean
 }

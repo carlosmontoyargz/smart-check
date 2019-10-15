@@ -3,7 +3,6 @@ package com.mino.smartcheck.controller
 import com.mino.smartcheck.config.SmartCheckProperties
 import com.mino.smartcheck.dto.UsuarioDto
 import com.mino.smartcheck.error.SignUpException
-import com.mino.smartcheck.model.Rol
 import com.mino.smartcheck.model.Usuario
 import com.mino.smartcheck.service.UsuarioService
 import io.jsonwebtoken.Jwts
@@ -27,45 +26,40 @@ class UsuarioController
 			val modelMapper: ModelMapper,
 			val smartCheckProperties: SmartCheckProperties)
 {
-	@GetMapping("/{id}") // FIXME retornar DTO
-	fun getUser(@PathVariable("id") id: Int) =
-			usuarioService.obtenerUsuario(id).apply { this!!.contrasena = "" }
+	@GetMapping("/{id}")
+	fun getUser(@PathVariable("id") id: Int): UsuarioDto? =
+			usuarioService
+					.obtenerUsuario(id)
+					.map { modelMapper.map(it, UsuarioDto::class.java) }
+					.orElse(null)
 
 	@GetMapping("")
 	fun obtenerTodos(): List<UsuarioDto> = usuarioService
 			.obtenerTodos()
-			.map { usuario -> UsuarioDto(
-					username = usuario.correo,
-					rolNombre = usuario.rol.nombre) }
+			.map { modelMapper.map(it, UsuarioDto::class.java) }
 
 	@PostMapping("/authenticate")
-	fun login(@Valid @RequestBody request: UsuarioDto): UsuarioDto?
-	{
-		val usuario = usuarioService.obtenerUsuario(request.username!!, request.password!!)
-		return if (usuario == null) null
-		else UsuarioDto(
-				username = usuario.correo,
-				token = getJwtToken(usuario.correo))
-	}
+	fun login(@Valid @RequestBody request: UsuarioDto): UsuarioDto? =
+			usuarioService
+					.obtenerUsuario(request.username!!, request.password!!)
+					.map { modelMapper
+							.map(it, UsuarioDto::class.java)
+							.apply { token = getJwtToken(username!!) }
+					}
+					.orElse(null)
 
 	@PostMapping("/register")
-	fun register(@Valid @RequestBody usuarioDto: UsuarioDto, uriBuilder: UriComponentsBuilder):
-			ResponseEntity<*>
-	{
-		return try {
-			val usuario = Usuario()
-			usuario.correo = usuarioDto.username
-			usuario.contrasena = usuarioDto.password
-			usuario.rol = Rol()
-			usuario.rol.nombre = usuarioDto.rolNombre
-
-			val r = usuarioService.registrarUsuario(usuario)
-			ResponseEntity
-					.created(uriBuilder.path("/users/${r.id}").build().toUri())
-					.build<URI>()
-		}
-		catch (e: SignUpException) { ResponseEntity.badRequest().body(e.message) }
-	}
+	fun register(@Valid @RequestBody usuarioDto: UsuarioDto,
+				 uriBuilder: UriComponentsBuilder): ResponseEntity<*> =
+			try {
+				val u = usuarioService
+						.registrarUsuario(modelMapper
+								.map(usuarioDto, Usuario::class.java))
+				ResponseEntity
+						.created(uriBuilder.path("/users/${u.id}").build().toUri())
+						.build<Any>()
+			}
+			catch (e: SignUpException) { ResponseEntity.badRequest().body(e.message) }
 
 	private fun getJwtToken(username: String) =
 			"Bearer ${Jwts.builder()

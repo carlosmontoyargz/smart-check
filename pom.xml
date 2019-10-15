@@ -109,8 +109,16 @@
 						<arg>-Xjsr305=strict</arg>
 					</args>
 					<compilerPlugins>
+            <plugin>jpa</plugin>
 						<plugin>spring</plugin>
+            <plugin>all-open</plugin>
+            <plugin>no-arg</plugin>
 					</compilerPlugins>
+          <pluginOptions>
+            <option>all-open:annotation=javax.persistence.Entity</option>
+            <option>all-open:annotation=javax.persistence.MappedSuperclass</option>
+            <option>all-open:annotation=javax.persistence.Embeddable</option>
+          </pluginOptions>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -118,6 +126,11 @@
 						<artifactId>kotlin-maven-allopen</artifactId>
 						<version>${kotlin.version}</version>
 					</dependency>
+          <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-noarg</artifactId>
+            <version>${kotlin.version}</version>
+          </dependency>
 				</dependencies>
 			</plugin>
 			<!--<plugin>
