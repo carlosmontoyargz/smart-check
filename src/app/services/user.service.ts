@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../models/user";
 import {environment} from "../../environments/environment";
-import {Rol} from "../models/rol";
-
 
 /**
  * The user service contains a standard set of CRUD methods for managing users,

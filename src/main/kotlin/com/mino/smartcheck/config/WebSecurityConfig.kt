@@ -20,9 +20,10 @@ class WebSecurityConfig
 				.csrf().disable()
 				.addFilterAt(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter::class.java)
 				.authorizeRequests()
+				.antMatchers(HttpMethod.GET, "/", "/index.html").permitAll() // FIXME authorize angular
 				.antMatchers(HttpMethod.POST,
 						"/users/authenticate", "/users/register").permitAll()
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.anyRequest().authenticated()
+				//.anyRequest().authenticated()
 	}
 }

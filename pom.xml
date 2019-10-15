@@ -133,7 +133,7 @@
           </dependency>
 				</dependencies>
 			</plugin>
-			<!--<plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
@@ -150,10 +150,11 @@
 					<workingDirectory>.</workingDirectory>
 					<arguments>
 						<argument>build</argument>
-						<argument>&#45;&#45;prod</argument>
+						<argument>--prod</argument>
+						<argument>--outputPath=./src/main/resources/static/</argument>
 					</arguments>
 				</configuration>
-			</plugin>-->
+			</plugin>
 		</plugins>
 	</build>
 

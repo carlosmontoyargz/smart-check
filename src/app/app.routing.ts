@@ -54,7 +54,11 @@ export const routes: Routes = [
 		children: [
 			{
 				path: 'check',
-				loadChildren: () => import('./views/check/check.module').then(m => m.CheckModule)
+				loadChildren: () => import('./modules/check/check.module').then(m => m.CheckModule)
+			},
+			{
+				path: 'estadisticas',
+				loadChildren: () => import('./modules/estadisticas/estadisticas.module').then(m => m.EstadisticasModule)
 			},
 			{
 				path: 'base',
