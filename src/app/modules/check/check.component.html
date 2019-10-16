@@ -1,7 +1,13 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-6 col-lg-3">
-      <div class="card text-white bg-danger">
+      <div [ngClass]="{
+        'card': true,
+        'text-white': true,
+        'bg-danger': tipoCheck === 'SALIDA',
+        'bg-success': tipoCheck === 'ENTRADA',
+        'bg-info': tipoCheck === ''
+      }">
         <div class="card-body pb-0">
           <!--<div class="btn-group float-right" dropdown>
             <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
@@ -13,11 +19,13 @@
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </div>-->
-          <button (click)="enviarCheck()" type="button" class="btn btn-transparent p-0 float-right">
-            <i class="cui-circle-check"></i>
+          <button type="button" class="btn btn-transparent p-0 float-right"
+                  (click)="enviarCheck()"
+                  [disabled]="checkDisabled">
+            <i class="cui-check"></i>
           </button>
           <div class="text-value">Check</div>
-          <div>Entrada o salida</div>
+          <div>{{tipoCheck}}</div>
         </div>
         <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
           <canvas baseChart class="chart"
@@ -45,7 +53,7 @@
                   <div class="callout callout-success">
                     <small class="text-muted">Hora de entrada de hoy</small>
                     <br>
-                    <strong class="h4">08:02:12</strong>
+                    <strong class="h4">{{horaEntrada}}</strong>
                   </div>
                 </div><!--/.col-->
               </div><!--/.row-->
@@ -57,7 +65,7 @@
                   <div class="callout callout-danger">
                     <small class="text-muted">Hora de salida de hoy</small>
                     <br>
-                    <strong class="h4">17:01:53</strong>
+                    <strong class="h4">{{horaSalida}}</strong>
                   </div>
                 </div><!--/.col-->
               </div><!--/.row-->

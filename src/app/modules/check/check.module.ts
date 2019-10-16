@@ -4,6 +4,7 @@ import {CheckComponent} from "./check.component";
 import {FormsModule} from "@angular/forms";
 import {ChartsModule} from "ng2-charts";
 import {BsDropdownModule, ButtonsModule} from "ngx-bootstrap";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
 	imports: [
@@ -11,7 +12,8 @@ import {BsDropdownModule, ButtonsModule} from "ngx-bootstrap";
 		CheckRoutingModule,
 		ChartsModule,
 		BsDropdownModule,
-		ButtonsModule.forRoot()
+		ButtonsModule.forRoot(),
+		CommonModule
 	],
 	declarations: [CheckComponent],
 })

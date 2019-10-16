@@ -12,19 +12,22 @@ import {environment} from "../../environments/environment";
 export class UserService {
 	constructor(private http: HttpClient) { }
 
-	public static usersEndpoint = 'users';
+	public readonly usersEndpoint = 'users';
 
 	getAll() {
-		return this.http.get<User[]>(`${environment.apiUrl}/${UserService.usersEndpoint}`);
+		return this.http.get<User[]>(
+				`${environment.apiUrl}/${this.usersEndpoint}`);
 	}
 
 	register(user: User) {
 		console.log('Entre a subir el usuario al web service');
 		user.rolNombre = "ROL_USER";
-		return this.http.post(`${environment.apiUrl}/${UserService.usersEndpoint}/register`, user);
+		return this.http.post(
+				`${environment.apiUrl}/${this.usersEndpoint}/register`, user);
 	}
 
 	delete(id: number) {
-		return this.http.delete(`${environment.apiUrl}/${UserService.usersEndpoint}/${id}`);
+		return this.http.delete(
+				`${environment.apiUrl}/${this.usersEndpoint}/${id}`);
 	}
 }

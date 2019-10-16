@@ -22,10 +22,9 @@ import javax.validation.Valid
 @RequestMapping("/users")
 @CrossOrigin("*")
 class UsuarioController
-	@Autowired constructor(
-			val usuarioService: UsuarioService,
-			val modelMapper: ModelMapper,
-			val smartCheckProperties: SmartCheckProperties)
+	@Autowired constructor(val usuarioService: UsuarioService,
+						   val modelMapper: ModelMapper,
+						   val smartCheckProperties: SmartCheckProperties)
 {
 	@GetMapping("/{id}")
 	fun getUser(@PathVariable("id") id: Int): UsuarioDto? =

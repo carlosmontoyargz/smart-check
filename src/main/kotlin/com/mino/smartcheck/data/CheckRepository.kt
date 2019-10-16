@@ -13,7 +13,5 @@ import java.time.LocalDate
 @RepositoryRestResource(path = "checks", collectionResourceRel = "checks")
 interface CheckRepository: JpaRepository<SmartCheck, Int>
 {
-	fun findFirstByEmpleadoAndFechaAndTipoCheck(@Param("empleado") empleado: Usuario,
-												@Param("fecha") fecha: LocalDate,
-												@Param("tipoCheck") tipoCheck: TipoCheck): SmartCheck?
+	fun findByEmpleadoAndFecha(empleado: Usuario, fecha: LocalDate): List<SmartCheck>
 }
