@@ -20,6 +20,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin("*")
 class UsuarioController
 	@Autowired constructor(
 			val usuarioService: UsuarioService,

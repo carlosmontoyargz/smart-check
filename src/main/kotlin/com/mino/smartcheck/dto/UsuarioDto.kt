@@ -5,6 +5,8 @@ import javax.validation.constraints.Email
 
 open class UsuarioDto
 {
+	var id: Int? = null
+
 	@NotNull
 	@Email
 	var username: String? = null
@@ -18,6 +20,6 @@ open class UsuarioDto
 	var rolNombre: String? = null
 
 	override fun toString(): String {
-		return "UsuarioDto(username=$username, password=$password, firstName=$firstName, lastName=$lastName, token=$token, rolNombre=$rolNombre)"
+		return "UsuarioDto(id=$id, username=$username, password=$password, firstName=$firstName, lastName=$lastName, token=$token, rolNombre=$rolNombre)"
 	}
 }

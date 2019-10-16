@@ -1,0 +1,31 @@
+POST http://localhost:8080/users/authenticate
+Content-Type: application/json
+
+{
+  "username": "carlos.montoya.rdgz@gmail.com",
+  "password": "sipirili"
+}
+
+###
+
+GET http://localhost:8080/checks
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJtaW5vSldUIiwic3ViIjoiY2FybG9zLm1vbnRveWEucmRnekBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTcxMTg2NDQ3LCJleHAiOjE1NzExODcwNDd9._R13W3_lCGIFE6aM8TvmS-p89KRQ3gIEEpThJI-AC93oMJ4NM9aOnAmakosrVXtoUDR3V_CmycXQkpX2vKJf5g
+
+###
+
+POST http://localhost:8080/checks
+Content-Type: application/json
+
+{
+  "empleado": "/users/2",
+  "fecha": "2020-12-31",
+  "hora": "14:20:32",
+  "tipoCheck": "SALIDA"
+}
+
+###
+
+GET http://localhost:8080/checks/search/findFirstByEmpleadoAndFechaAndTipoCheck?empleado=/users/1&fecha=15/10/19&tipoCheck=ENTRADA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJtaW5vSldUIiwic3ViIjoiY2FybG9zLm1vbnRveWEucmRnekBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTcxMTgzMzk2LCJleHAiOjE1NzExODM5OTZ9.ehnhLNnbpjgCVptGIpF9m4xpGVBhsZhVLMTa4Iq9vsqNPlQEqpym_FJEamTUac0P570T7ixT61-B2w9CTQd9XQ
+
+###
