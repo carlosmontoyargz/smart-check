@@ -112,7 +112,6 @@
             <plugin>jpa</plugin>
 						<plugin>spring</plugin>
             <plugin>all-open</plugin>
-            <plugin>no-arg</plugin>
 					</compilerPlugins>
           <pluginOptions>
             <option>all-open:annotation=javax.persistence.Entity</option>
@@ -120,6 +119,27 @@
             <option>all-open:annotation=javax.persistence.Embeddable</option>
           </pluginOptions>
 				</configuration>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>src/main/kotlin</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
 				<dependencies>
 					<dependency>
 						<groupId>org.jetbrains.kotlin</groupId>
