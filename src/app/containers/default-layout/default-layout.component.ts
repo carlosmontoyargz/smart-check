@@ -2,6 +2,7 @@ import {Component, OnDestroy, Inject} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {navItems} from '../../_nav';
 import {AuthenticationService} from "../../services/authentication.service";
+import {ClockService} from "../../services/clock.service";
 
 
 @Component({
@@ -13,8 +14,10 @@ export class DefaultLayoutComponent implements OnDestroy {
 	public sidebarMinimized = true;
 	private changes: MutationObserver;
 	public element: HTMLElement;
+	public clock = '';
 
 	constructor(private authenticationService: AuthenticationService,
+				private clockService: ClockService,
 				@Inject(DOCUMENT) _document?: any)
 	{
 		this.changes = new MutationObserver((mutations) => {
@@ -25,6 +28,7 @@ export class DefaultLayoutComponent implements OnDestroy {
 			attributes: true,
 			attributeFilter: ['class']
 		});
+		this.clockService.time.subscribe(c => this.clock = c.toLocaleString())
 	}
 
 	ngOnDestroy(): void {
