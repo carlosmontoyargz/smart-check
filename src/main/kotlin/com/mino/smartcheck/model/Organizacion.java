@@ -3,6 +3,7 @@ package com.mino.smartcheck.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,9 +25,12 @@ public class Organizacion
 	@EqualsAndHashCode.Include
 	private Integer id;
 
+	@Column(nullable = false)
 	private String nombre;
 
+	@Column(nullable = false)
 	private LocalTime horaEntrada;
 
+	@Column(nullable = false)
 	private LocalTime horaSalida;
 }
