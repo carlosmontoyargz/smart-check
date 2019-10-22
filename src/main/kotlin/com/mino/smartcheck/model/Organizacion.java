@@ -1,10 +1,13 @@
 package com.mino.smartcheck.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalTime;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -13,28 +16,17 @@ import java.util.Objects;
  */
 @Entity
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Organizacion
 {
 	@Id
 	@GeneratedValue
+	@EqualsAndHashCode.Include
 	private Integer id;
 
 	private String nombre;
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+	private LocalTime horaEntrada;
 
-		Organizacion that = (Organizacion) o;
-
-		return Objects.equals(id, that.id);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return id != null ? id.hashCode() : 0;
-	}
+	private LocalTime horaSalida;
 }

@@ -1,6 +1,7 @@
 package com.mino.smartcheck.dto
 
 import org.jetbrains.annotations.NotNull
+import java.time.LocalTime
 import javax.validation.constraints.Email
 
 open class UsuarioDto
@@ -18,8 +19,11 @@ open class UsuarioDto
 	var lastName: String? = ""
 	var token: String? = null
 	var rolNombre: String? = null
+	var organizacionNombre: String? = null
+	var organizacionHoraEntrada: LocalTime? = null
+	var organizacionHoraSalida: LocalTime? = null
 
 	override fun toString(): String {
-		return "UsuarioDto(id=$id, username=$username, password=$password, firstName=$firstName, lastName=$lastName, token=$token, rolNombre=$rolNombre)"
+		return "UsuarioDto(id=$id, username=$username, password=$password, firstName=$firstName, lastName=$lastName, token=$token, rolNombre=$rolNombre, organizacionNombre=$organizacionNombre, organizacionHoraEntrada=$organizacionHoraEntrada, organizacionHoraSalida=$organizacionHoraSalida)"
 	}
 }

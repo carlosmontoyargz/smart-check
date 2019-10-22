@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import {CheckService} from "../../services/check.service";
 import {SmartCheck} from "../../models/smart-check";
 import {AuthenticationService} from "../../services/authentication.service";
-import {UserService} from "../../services/user.service";
+import {User} from "../../models/user";
 
 @Component({
 	templateUrl: 'check.component.html'
@@ -17,14 +16,10 @@ export class CheckComponent implements OnInit {
 	public checkDisabled = true;
 	public horaEntrada = '';
 	public horaSalida = '';
+	public usuario: User;
 
 	ngOnInit(): void {
-		// generate random values for mainChart
-		for (let i = 0; i <= this.mainChartElements; i++) {
-			this.mainChartData1.push(this.random(50, 200));
-			this.mainChartData2.push(this.random(80, 100));
-			this.mainChartData3.push(65);
-		}
+		this.usuario = this.authenticationService.currentUserValue;
 		this.checkService
 				.obtenerChecksDeHoy()
 				.subscribe(
@@ -58,7 +53,14 @@ export class CheckComponent implements OnInit {
 							console.log(error);
 							this.checkDisabled = false;
 						}
-				)
+				);
+
+		// generate random values for mainChart
+		for (let i = 0; i <= this.mainChartElements; i++) {
+			this.mainChartData1.push(this.random(50, 200));
+			this.mainChartData2.push(this.random(80, 100));
+			this.mainChartData3.push(65);
+		}
 	}
 
 	enviarCheck() {

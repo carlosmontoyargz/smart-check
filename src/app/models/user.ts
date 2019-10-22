@@ -6,4 +6,7 @@ export class User {
 	lastName: string;
 	rolNombre: string;
 	token: string;
+	organizacionNombre: string;
+	organizacionHoraEntrada: string;
+	organizacionHoraSalida: string;
 }

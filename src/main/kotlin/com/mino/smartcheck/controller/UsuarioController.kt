@@ -27,7 +27,7 @@ class UsuarioController
 						   val smartCheckProperties: SmartCheckProperties)
 {
 	@GetMapping("/{id}")
-	fun getUser(@PathVariable("id") id: Int): UsuarioDto? =
+	fun getById(@PathVariable("id") id: Int): UsuarioDto? =
 			usuarioService
 					.obtenerUsuario(id)
 					.map { modelMapper.map(it, UsuarioDto::class.java) }
@@ -56,7 +56,8 @@ class UsuarioController
 						.registrarUsuario(modelMapper
 								.map(usuarioDto, Usuario::class.java))
 				ResponseEntity
-						.created(uriBuilder.path("/users/${u.id}").build().toUri())
+						.created(uriBuilder
+								.path("/users/${u.id}").build().toUri())
 						.build<Any>()
 			}
 			catch (e: SignUpException) { ResponseEntity.badRequest().body(e.message) }
