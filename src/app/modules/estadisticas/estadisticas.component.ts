@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import {CheckService} from "../../services/check.service";
 
 @Component({
 	templateUrl: 'estadisticas.component.html'
 })
-export class EstadisticasComponent implements OnInit {
+export class EstadisticasComponent implements OnInit
+{
+	constructor(private checkService: CheckService) {}
 
 	radioModel: string = 'Month';
 
@@ -20,7 +23,8 @@ export class EstadisticasComponent implements OnInit {
 		{ label: 'Salida', data: this.mainChartData2},
 	];
 	/* tslint:disable:max-line-length */
-	public mainChartLabels: Array<any> = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+	public mainChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', "29", "30", "31"];
+			//['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 	/* tslint:enable:max-line-length */
 
 	public mainChartOptions: any = {
@@ -45,16 +49,17 @@ export class EstadisticasComponent implements OnInit {
 				},
 				ticks: {
 					callback: function(value: any) {
-						return value.charAt(0);
+						return value;
 					}
 				}
 			}],
 			yAxes: [{
 				ticks: {
-					beginAtZero: true,
+					beginAtZero: false,
 					maxTicksLimit: 5,
 					stepSize: Math.ceil(250 / 5),
-					max: 250
+					min: -30,
+					max: 30
 				}
 			}]
 		},
@@ -95,10 +100,32 @@ export class EstadisticasComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+
+		this.checkService
+				.obtenerChecksDelMes()
+				.subscribe(
+					checks => {
+						for (let i = 0; i <=this.mainChartElements; i++) {
+							let c = checks
+								.filter(value =>
+										i === new Date(value.fecha).getDate() &&
+										value.tipoCheck === 'ENTRADA')
+								.pop();
+
+							if (c) {
+								this.mainChartData1.push(c.diferenciaMinutos)
+							} else {
+								this.mainChartData1.push(0)
+							}
+						}
+					},
+					error => {
+
+					});
+
 		// generate random values for mainChart
 		for (let i = 0; i <= this.mainChartElements; i++) {
-			this.mainChartData1.push(this.random(50, 200));
-			this.mainChartData2.push(this.random(80, 100));
+			this.mainChartData2.push(this.random(-20, 10));
 		}
 	}
 }

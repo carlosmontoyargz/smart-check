@@ -4,9 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Objects;
 
 /**
  * @author Carlos Montoya
@@ -32,7 +32,17 @@ public class SmartCheck
 	@Column(nullable = false)
 	private LocalTime hora;
 
+	private LocalTime horaBase;
+
+	private Long diferenciaMinutos;
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoCheck tipoCheck;
+
+	@PreUpdate
+	public void asignarDiferenciaMinutos()
+	{
+		diferenciaMinutos = Duration.between(horaBase, hora).toMinutes();
+	}
 }

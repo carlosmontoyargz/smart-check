@@ -50,17 +50,20 @@ class UsuarioController
 
 	@PostMapping("/register")
 	fun register(@Valid @RequestBody usuarioDto: UsuarioDto,
-				 uriBuilder: UriComponentsBuilder): ResponseEntity<*> =
-			try {
-				val u = usuarioService
-						.registrarUsuario(modelMapper
-								.map(usuarioDto, Usuario::class.java))
-				ResponseEntity
-						.created(uriBuilder
-								.path("/users/${u.id}").build().toUri())
-						.build<Any>()
-			}
-			catch (e: SignUpException) { ResponseEntity.badRequest().body(e.message) }
+				 uriBuilder: UriComponentsBuilder): ResponseEntity<*> {
+		return try {
+			val u = usuarioService
+					.registrarUsuario(
+							modelMapper.map(usuarioDto, Usuario::class.java))
+			ResponseEntity
+					.created(uriBuilder
+							.path("/users/${u.id}").build()
+							.toUri())
+					.build<Any>()
+		} catch (e: SignUpException) {
+			ResponseEntity.badRequest().body(e.message)
+		}
+	}
 
 	private fun getJwtToken(username: String) =
 			"Bearer ${Jwts.builder()

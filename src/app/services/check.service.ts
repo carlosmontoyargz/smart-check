@@ -21,18 +21,40 @@ export class CheckService
 	}
 
 	obtenerChecksDeHoy() {
-		let today = new Date();
-		let dd = String(today.getDate()).padStart(2, '0');
-		let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-		let yy = today.getFullYear().toString().substr(2, 2);
 		return this.http.get<any>(
 				`${environment.apiUrl}/checks/search/findByEmpleadoAndFecha`,
 				{
 					params: {
 						"empleado": this.authenticationService.currentUserLocation,
-						"fecha": `${dd}/${mm}/${yy}`,
+						"fecha": this.parseCurrentDate(),
 					}
 				})
 				.pipe(map<any, SmartCheck[]>(r => { return r._embedded.checks }))
+	}
+
+	obtenerChecksDelMes() {
+		return this.http.get<any>(
+				`${environment.apiUrl}/checks/search/findByFechaGreaterThanEqual`,
+				{
+					params: {
+						"from": this.parseFirstDayOfCurrentMonth()
+					}
+				})
+				.pipe(map<any, SmartCheck[]>(r => { return r._embedded.checks }))
+	}
+
+	private parseCurrentDate(): string {
+		let today = new Date();
+		let dd = String(today.getDate()).padStart(2, '0');
+		let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		let yy = today.getFullYear().toString().substr(2, 2);
+		return `${dd}/${mm}/${yy}`;
+	}
+
+	private parseFirstDayOfCurrentMonth(): string {
+		let today = new Date();
+		let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		let yy = today.getFullYear().toString().substr(2, 2);
+		return `1/${mm}/${yy}`;
 	}
 }

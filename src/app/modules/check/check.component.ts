@@ -80,6 +80,14 @@ export class CheckComponent implements OnInit {
 		check.hora = hh + ':' + min + ':' + ss;
 		check.empleado = this.authenticationService.currentUserLocation;
 		check.tipoCheck = this.tipoCheck;
+		if (this.tipoCheck === 'ENTRADA') {
+			check.horaBase = this.horaEntrada;
+		} else if (this.tipoCheck === 'SALIDA') {
+			check.horaBase = this.horaSalida;
+		} else {
+			check.horaBase = ''
+		}
+
 		this.checkService
 				.postCheck(check)
 				.subscribe(
