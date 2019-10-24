@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import {CheckService} from "../../services/check.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
 	templateUrl: 'estadisticas.component.html'
@@ -10,23 +11,48 @@ export class EstadisticasComponent implements OnInit
 {
 	constructor(private checkService: CheckService) {}
 
-	radioModel: string = 'Month';
+	public mesActual = new DatePipe('en-US').transform(new Date(), "MMMM y");
 
-	// mainChart
+	public entradasTemprano = '';
+	public retrasos = '';
+	public salidasTemprano = '';
+	public horasExtra = '';
 
-	public mainChartElements = 27;
-	public mainChartData1: Array<number> = [];
-	public mainChartData2: Array<number> = [];
+	public mainChartElements = 31;
 
-	public mainChartData: Array<any> = [
-		{ label: 'Entrada', data: this.mainChartData1},
-		{ label: 'Salida', data: this.mainChartData2},
+	// grafica de entradas
+	public mainChartArray1: Array<number> = new Array<number>(this.mainChartElements);
+	public mainChartData1: Array<any> = [
+		{ label: 'Entrada', data: this.mainChartArray1},
 	];
-	/* tslint:disable:max-line-length */
-	public mainChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', "29", "30", "31"];
-			//['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-	/* tslint:enable:max-line-length */
+	public mainChartColours1: Array<any> = [
+		{ // brandInfo
+			backgroundColor: hexToRgba(getStyle('--info'), 10),
+			borderColor: getStyle('--success'),
+			pointHoverBackgroundColor: '#fff'
+		},
+		{ // brandSuccess
+			backgroundColor: hexToRgba(getStyle('--danger'), 10),
+			borderColor: getStyle('--danger'),
+			pointHoverBackgroundColor: '#fff'
+		},
+	];
 
+	// grafica de salida
+	public mainChartArray2: Array<number> = new Array<number>(this.mainChartElements);
+	public mainChartData2: Array<any> = [
+		{ label: 'Entrada', data: this.mainChartArray2},
+	];
+	public mainChartColours2: Array<any> = [
+		{ // brandSuccess
+			backgroundColor: hexToRgba(getStyle('--danger'), 10),
+			borderColor: getStyle('--danger'),
+			pointHoverBackgroundColor: '#fff'
+		},
+	];
+
+	// formato de graficas
+	public mainChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', "29", "30", "31"];
 	public mainChartOptions: any = {
 		tooltips: {
 			enabled: false,
@@ -51,13 +77,16 @@ export class EstadisticasComponent implements OnInit
 					callback: function(value: any) {
 						return value;
 					}
-				}
+				},
 			}],
 			yAxes: [{
 				ticks: {
+					callback: function(value: any) {
+						return `${value} m`;
+					},
 					beginAtZero: false,
-					maxTicksLimit: 5,
-					stepSize: Math.ceil(250 / 5),
+					maxTicksLimit: 12,
+					stepSize: 5,
 					min: -30,
 					max: 30
 				}
@@ -78,54 +107,67 @@ export class EstadisticasComponent implements OnInit
 			display: false
 		}
 	};
-	public mainChartColours: Array<any> = [
-		{ // brandInfo
-			backgroundColor: hexToRgba(getStyle('--info'), 10),
-			borderColor: getStyle('--success'),
-			pointHoverBackgroundColor: '#fff'
-		},
-		{ // brandSuccess
-			backgroundColor: hexToRgba(getStyle('--danger'), 10),
-			borderColor: getStyle('--danger'),
-			pointHoverBackgroundColor: '#fff'
-		},
-	];
 	public mainChartLegend = false;
 	public mainChartType = 'line';
-
-	// social box charts
 
 	public random(min: number, max: number) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
 
-	ngOnInit(): void {
+	ngOnInit() {
+		this.checkService.obtenerChecksDelMes().subscribe(
+			checks => {
+				console.log("Se han descargado los checks del mes");
+				console.log(checks);
 
-		this.checkService
-				.obtenerChecksDelMes()
-				.subscribe(
-					checks => {
-						for (let i = 0; i <=this.mainChartElements; i++) {
-							let c = checks
-								.filter(value =>
-										i === new Date(value.fecha).getDate() &&
-										value.tipoCheck === 'ENTRADA')
-								.pop();
+				let minTemprano = 0;
+				let minTarde = 0;
+				let minSalidaTemp = 0;
+				let minExtra = 0;
 
-							if (c) {
-								this.mainChartData1.push(c.diferenciaMinutos)
-							} else {
-								this.mainChartData1.push(0)
-							}
-						}
-					},
-					error => {
+				for (let i = 0; i < this.mainChartElements; i++) {
+					let c = checks
+						.filter(value =>
+								i + 1 === Number(value.fecha.substr(8, 2)) &&
+								value.tipoCheck === 'ENTRADA')
+						.pop();
 
-					});
+					let diff = 0;
+					if (c) { diff = c.diferenciaMinutos }
+					this.mainChartArray1[i] = diff;
 
-		// generate random values for mainChart
-		for (let i = 0; i <= this.mainChartElements; i++) {
-			this.mainChartData2.push(this.random(-20, 10));
-		}
+					if (diff > 0) minTarde += diff;
+					else minTemprano += diff;
+				}
+				for (let i = 0; i < this.mainChartElements; i++) {
+					let c = checks
+							.filter(value =>
+									i + 1 === Number(value.fecha.substr(8, 2)) &&
+									value.tipoCheck === 'SALIDA')
+							.pop();
+
+					let diff = 0;
+					if (c) { diff = c.diferenciaMinutos }
+					this.mainChartArray2[i] = diff;
+
+					if (diff > 0) minExtra += diff;
+					else minSalidaTemp += diff;
+				}
+
+				this.entradasTemprano = this.parseMinutes(minTemprano);
+				this.retrasos = this.parseMinutes(minTarde);
+				this.salidasTemprano = this.parseMinutes(minSalidaTemp);
+				this.horasExtra = this.parseMinutes(minExtra);
+			},
+			error => {
+				// TODO mensaje de error
+			});
+	}
+
+	private parseMinutes(min: number): string {
+		if (min < 0) min = -min;
+		let horas = Math.trunc(min / 60);
+		let minutes = Math.trunc(min % 60);
+		return `${String(horas).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
 	}
 }

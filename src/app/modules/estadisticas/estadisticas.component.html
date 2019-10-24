@@ -3,8 +3,8 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-5">
-          <h4 class="card-title mb-0">Estadísticas del mes</h4>
-          <div class="small text-muted">Noviembre 2019</div>
+          <h4 class="card-title mb-0">Estadísticas de entrada</h4>
+          <div class="small text-muted">{{mesActual}}</div>
         </div><!--/.col-->
        <!-- <div class="col-sm-7 d-none d-md-block">
           <button type="button" class="btn btn-primary float-right"><i class="icon-cloud-download"></i></button>
@@ -17,10 +17,10 @@
       </div><!--/.row-->
       <div class="chart-wrapper" style="height:300px;margin-top:40px;">
         <canvas baseChart class="chart"
-                [datasets]="mainChartData"
+                [datasets]="mainChartData1"
                 [labels]="mainChartLabels"
                 [options]="mainChartOptions"
-                [colors]="mainChartColours"
+                [colors]="mainChartColours1"
                 [legend]="mainChartLegend"
                 [chartType]="mainChartType"></canvas>
       </div>
@@ -28,15 +28,60 @@
     <div class="card-footer">
       <div class="row text-center">
         <div class="col-sm-12 col-md mb-sm-2 mb-0">
-          <div class="text-muted">Horas de entrada</div>
-          <strong>Horas extra totales: 1:03:02</strong>
+          <div class="text-muted">Entradas temprano</div>
+          <strong>{{entradasTemprano}}</strong>
           <div class="progress progress-xs mt-2">
             <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
         <div class="col-sm-12 col-md mb-sm-2 mb-0">
-          <div class="text-muted">Horas de salida</div>
-          <strong>Retrasos totales: 0:23:12</strong>
+          <div class="text-muted">Retrasos</div>
+          <strong>{{retrasos}}</strong>
+          <div class="progress progress-xs mt-2">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-5">
+          <h4 class="card-title mb-0">Estadísticas de salida</h4>
+          <div class="small text-muted">{{mesActual}}</div>
+        </div><!--/.col-->
+        <!-- <div class="col-sm-7 d-none d-md-block">
+           <button type="button" class="btn btn-primary float-right"><i class="icon-cloud-download"></i></button>
+           <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+             <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Day" id="option1">Dia</label>
+             <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Month" id="option2">Mes</label>
+             <label class="btn btn-outline-secondary" [(ngModel)]="radioModel" btnRadio="Year" id="option3">Año</label>
+           </div>
+         </div>--><!--/.col-->
+      </div><!--/.row-->
+      <div class="chart-wrapper" style="height:300px;margin-top:40px;">
+        <canvas baseChart class="chart"
+                [datasets]="mainChartData2"
+                [labels]="mainChartLabels"
+                [options]="mainChartOptions"
+                [colors]="mainChartColours2"
+                [legend]="mainChartLegend"
+                [chartType]="mainChartType"></canvas>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="row text-center">
+        <div class="col-sm-12 col-md mb-sm-2 mb-0">
+          <div class="text-muted">Salidas temprano</div>
+          <strong>{{salidasTemprano}}</strong>
+          <div class="progress progress-xs mt-2">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md mb-sm-2 mb-0">
+          <div class="text-muted">Horas extra</div>
+          <strong>{{horasExtra}}</strong>
           <div class="progress progress-xs mt-2">
             <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
           </div>

@@ -75,7 +75,7 @@ class UsuarioController
 							.map { it.authority }
 							.collect(Collectors.toList()))
 					.setIssuedAt(Date(System.currentTimeMillis()))
-					.setExpiration(Date(System.currentTimeMillis() + 600000))
+					.setExpiration(Date(System.currentTimeMillis() + 60000000))
 					.signWith(SignatureAlgorithm.HS512, smartCheckProperties.secretKey.toByteArray())
 					.compact()}"
 }
