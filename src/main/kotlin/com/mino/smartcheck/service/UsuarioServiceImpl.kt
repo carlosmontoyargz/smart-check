@@ -40,7 +40,7 @@ class UsuarioServiceImpl
 				.orElseThrow { SignUpException("No existe el rol especificado") }
 
 		usuario.organizacion = organizacionRepository.findById(1)
-				.orElseThrow { RuntimeException() }
+				.orElseThrow { RuntimeException("No existen datos de organizacion") }
 
 		usuario.password = passwordEncoder.encode(usuario.password)
 

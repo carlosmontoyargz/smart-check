@@ -2,8 +2,8 @@ POST http://localhost:8080/authenticate
 Content-Type: application/json
 
 {
-  "username": "javainuse@gmail.com",
-  "password": "password1"
+  "username": "carlos.montoya.rdgz@outlook.com",
+  "password": "sipirili"
 }
 
 ###
@@ -16,16 +16,16 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tI
 GET http://localhost:8080/api/usuarios/999999
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
 
-
 ###
 
-POST http://localhost:8080/users/register
+POST http://localhost:8080/api/empleados/register
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
 Content-Type: application/json
 
 {
-  "username": "dewey@outlook.com",
-  "password": "23231423",
-  "rolNombre": "ROL_USER"
+  "username": "carlos.montoya.rdgz@outlook.com",
+  "password": "sipirili",
+  "rolNombre": "EMPLEADO"
 }
 
 ###
