@@ -14,8 +14,8 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
-@CrossOrigin("*")
 @RepositoryRestResource(path = "checks", collectionResourceRel = "checks")
+@CrossOrigin(origins = ["*"])
 interface CheckRepository: JpaRepository<SmartCheck, Int>
 {
 	fun findByFechaGreaterThanEqual(from: LocalDate): List<SmartCheck>

@@ -2,7 +2,7 @@ POST http://localhost:8080/authenticate
 Content-Type: application/json
 
 {
-  "username": "carlos.montoya.rdgz@outlook.com",
+  "username": "carlos.montoya.rdgz@gmail.com",
   "password": "sipirili"
 }
 
@@ -14,6 +14,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tI
 ###
 
 GET http://localhost:8080/api/usuarios/60?projection=datos
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
+
+###
+
+GET http://localhost:8080/api/usuarios/search/findByUsername?username=carlos.montoya.rdgz@gmail.com&projection=datos
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
 
 ###

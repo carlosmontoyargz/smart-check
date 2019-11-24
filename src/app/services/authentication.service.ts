@@ -25,12 +25,29 @@ export class AuthenticationService {
 		return `/${this.userService.usersEndpoint}/${this.currentUserValue.id}`;
 	}
 
-	login(username, password) {
+  getToken(username: string, password: string) {
+    return this.http
+      .post<any>(
+        `${environment.appUrl}/authenticate`,
+        { username: username, password })
+      .pipe(map(result => {return result.jwttoken;}))
+  }
+
+	login(username, token) {
 		return this.http
-				.post<any>(
-						`${environment.apiUrl}/authenticate`,
-						{ username: username, password })
+				.get<User>(
+						`${environment.apiUrl}/usuarios/search/findByUsername`,
+						{
+							params: {
+								"username": username,
+								"projection": "datos"
+							},
+							headers: {
+								Authorization: `Bearer ${token}`
+							}
+						})
 				.pipe(map(user => {
+					user.token = token;
 					// store user details and jwt token in local storage to keep user logged in between page refreshes
 					localStorage.setItem('currentUser', JSON.stringify(user));
 					this.currentUserSubject.next(user);

@@ -50,7 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
 				.csrf().disable() // We don't need CSRF for this example
-//				.anonymous().and()
 				.antMatcher("/api/**")
 				.authorizeRequests()
 				.anyRequest().authenticated() // all requests to /api/ need to be authenticated
@@ -62,6 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 				.and()
 				// make sure we use stateless session; session won't be used to store user's state.
 				.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().cors()
+		;
 	}
 }

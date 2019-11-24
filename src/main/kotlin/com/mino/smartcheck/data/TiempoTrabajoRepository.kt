@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import java.time.LocalDate
 import java.util.*
 
-@CrossOrigin("*")
 @RepositoryRestResource(exported = false)
+@CrossOrigin(origins = ["*"])
 interface TiempoTrabajoRepository : JpaRepository<TiempoTrabajo, Int>
 {
 	fun findFirstByCheckEntrada_EmpleadoAndMinutosTrabajadosIsNull(usuario: Usuario)
