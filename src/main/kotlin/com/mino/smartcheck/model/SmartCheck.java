@@ -1,5 +1,6 @@
 package com.mino.smartcheck.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
@@ -39,6 +40,7 @@ public class SmartCheck
 	private Long diferenciaMinutos;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private HorasTrabajo horasTrabajo;
 
 	public void asignarDiferenciaMinutos()

@@ -66,7 +66,7 @@ class BeforeCheckSaveHandler
 					.orElseThrow { val ex = RuntimeException("No hay check de entrada"); ex }
 
 			check.horasTrabajo.minutos += Duration
-					.between(chkEntrada.creado, now)
+					.between(chkEntrada.creado, check.creado)
 					.toMinutes()
 			log.info("Minutos de trabajo actualizados {}", Supplier { check.horasTrabajo.minutos })
 		}
