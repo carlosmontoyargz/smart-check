@@ -8,23 +8,23 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/empleados/999999
+GET http://localhost:8080/api/usuarios/60
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
 
 ###
 
-GET http://localhost:8080/api/usuarios/999999
+GET http://localhost:8080/api/usuarios/60?projection=datos
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
 
 ###
 
-POST http://localhost:8080/api/empleados/register
+POST http://localhost:8080/api/usuarios/registro
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
 Content-Type: application/json
 
 {
-  "username": "carlos.montoya.rdgz@outlook.com",
-  "password": "sipirili",
+  "username": "mario.anzueres@gmail.com",
+  "password": "trololo",
   "rolNombre": "EMPLEADO"
 }
 

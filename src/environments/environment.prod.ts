@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	apiUrl: 'https://smartcheck-fcc.herokuapp.com'
+	apiUrl: 'https://smartcheck-fcc.herokuapp.com/api'
 };

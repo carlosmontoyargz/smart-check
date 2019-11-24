@@ -19,26 +19,13 @@ import java.util.stream.Collectors
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/empleados")
+@RequestMapping("/api/usuarios")
 @CrossOrigin("*")
-class UsuarioController
+class EmpleadoController
 	@Autowired constructor(val usuarioService: UsuarioService,
-						   val modelMapper: ModelMapper,
-						   val smartCheckProperties: SmartCheckProperties)
+						   val modelMapper: ModelMapper)
 {
-	@GetMapping("/{id}")
-	fun getById(@PathVariable("id") id: Int): UsuarioDto? =
-			usuarioService
-					.obtenerUsuario(id)
-					.map { modelMapper.map(it, UsuarioDto::class.java) }
-					.orElse(null)
-
-	@GetMapping("")
-	fun obtenerTodos(): List<UsuarioDto> = usuarioService
-			.obtenerTodos()
-			.map { modelMapper.map(it, UsuarioDto::class.java) }
-
-	@PostMapping("/register")
+	@PostMapping("/registro")
 	fun register(@Valid @RequestBody usuarioDto: UsuarioDto,
 				 uriBuilder: UriComponentsBuilder): ResponseEntity<*> {
 		return try {
@@ -47,7 +34,7 @@ class UsuarioController
 							modelMapper.map(usuarioDto, Usuario::class.java))
 			ResponseEntity
 					.created(uriBuilder
-							.path("/users/${u.id}").build()
+							.path("/usuarios/${u.id}").build()
 							.toUri())
 					.build<Any>()
 		} catch (e: SignUpException) {
@@ -55,6 +42,18 @@ class UsuarioController
 		}
 	}
 
+//	@GetMapping("")
+//	fun obtenerTodos(): List<UsuarioDto> = usuarioService
+//			.obtenerTodos()
+//			.map { modelMapper.map(it, UsuarioDto::class.java) }
+//
+//	@GetMapping("/{id}")
+//	fun getById(@PathVariable("id") id: Int): UsuarioDto? =
+//			usuarioService
+//					.obtenerUsuario(id)
+//					.map { modelMapper.map(it, UsuarioDto::class.java) }
+//					.orElse(null)
+//
 //	@PostMapping("/authenticate1")
 //	fun login(@Valid @RequestBody request: UsuarioDto): UsuarioDto? =
 //			usuarioService
