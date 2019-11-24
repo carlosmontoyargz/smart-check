@@ -1,7 +1,6 @@
 package com.mino.smartcheck.data
 
-import com.mino.smartcheck.model.SmartCheck
-import com.mino.smartcheck.model.TiempoTrabajo
+import com.mino.smartcheck.model.HorasTrabajo
 import com.mino.smartcheck.model.Usuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -12,13 +11,12 @@ import java.util.*
 
 @RepositoryRestResource(exported = false)
 @CrossOrigin(origins = ["*"])
-interface TiempoTrabajoRepository : JpaRepository<TiempoTrabajo, Int>
+interface HorasTrabajoRepository: JpaRepository<HorasTrabajo, Int>
 {
-	fun findFirstByCheckEntrada_EmpleadoAndMinutosTrabajadosIsNull(usuario: Usuario)
-			: Optional<TiempoTrabajo>
+	fun findFirstByFechaInicioAndUsuario(inicio: LocalDate, usuario: Usuario)
+			: Optional<HorasTrabajo>
 
-	@Query("SELECT SUM(tt.minutosTrabajados) " +
-			"FROM TiempoTrabajo tt " +
-			"WHERE tt.checkEntrada.fecha >= :desde")
-	fun findTotalMinutosTrabajados(desde: LocalDate): Int
+//	@Query("SELECT SUM(tt.minutos) " +
+//			"FROM HorasTrabajo tt WHERE tt.checkEntrada.fecha >= :desde")
+//	fun findTotalMinutosTrabajados(desde: LocalDate): Int
 }

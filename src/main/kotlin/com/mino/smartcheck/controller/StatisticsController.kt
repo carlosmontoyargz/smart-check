@@ -1,9 +1,8 @@
 package com.mino.smartcheck.controller
 
 import com.mino.smartcheck.data.CheckRepository
-import com.mino.smartcheck.data.TiempoTrabajoRepository
+import com.mino.smartcheck.data.HorasTrabajoRepository
 import com.mino.smartcheck.dto.StatisticsResult
-import com.mino.smartcheck.model.TipoCheck
 import com.mino.smartcheck.model.TipoCheck.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,14 +15,13 @@ import java.time.LocalDate
 class StatisticsController
 	@Autowired constructor(
 			val checkRepository: CheckRepository,
-			val tiempoTrabajoRepository: TiempoTrabajoRepository)
+			val horasTrabajoRepository: HorasTrabajoRepository)
 {
 	@GetMapping("/all")
 	fun findAllStatistics(): StatisticsResult {
 		val firstDayOfMonth = LocalDate.now().withDayOfMonth(1)
 		return StatisticsResult().apply {
-			minutosTrabajados = tiempoTrabajoRepository
-					.findTotalMinutosTrabajados(firstDayOfMonth)
+			//minutosTrabajados = horasTrabajoRepository.findTotalMinutosTrabajados(firstDayOfMonth)
 			minutosExtra = checkRepository.findTotalPositivo(SALIDA)
 			minutosRetrasos = checkRepository.findTotalPositivo(ENTRADA)
 		}

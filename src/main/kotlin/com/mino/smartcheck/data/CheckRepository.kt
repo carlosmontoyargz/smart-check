@@ -18,10 +18,12 @@ import java.util.*
 @CrossOrigin(origins = ["*"])
 interface CheckRepository: JpaRepository<SmartCheck, Int>
 {
-	fun findByFechaGreaterThanEqual(from: LocalDate): List<SmartCheck>
+	fun findFirstByTipoOrderByCreadoDesc(tipo: TipoCheck): Optional<SmartCheck>
 
 	@Query("SELECT SUM(sc.diferenciaMinutos) " +
 			"FROM SmartCheck sc " +
 			"WHERE sc.diferenciaMinutos > 0 AND sc.tipo = :tipo")
 	fun findTotalPositivo(tipo: TipoCheck): Int
+
+	//fun findByCreadoGreaterThanEqual(from: LocalDate): List<SmartCheck>
 }

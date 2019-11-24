@@ -7,6 +7,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,25 +32,33 @@ public class SmartCheck
 	private TipoCheck tipo;
 
 	@Column(nullable = false)
-	private LocalDate fecha;
-
-	@Column(nullable = false)
-	private LocalTime hora;
+	private LocalDateTime creado;
 
 	private LocalTime horaBase;
 
 	private Long diferenciaMinutos;
 
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private HorasTrabajo horasTrabajo;
+
 	public void asignarDiferenciaMinutos()
 	{
 		if (horaBase != null)
-			diferenciaMinutos = Duration.between(horaBase, hora).toMinutes();
+			diferenciaMinutos = Duration
+					.between(horaBase, creado.toLocalTime())
+					.toMinutes();
 		else
 			diferenciaMinutos = 0L;
 	}
 
-	public LocalDateTime getLocalDateTime() {
-		return LocalDateTime.of(fecha, hora);
+	public HorasTrabajo getHorasTrabajo()
+	{
+		return horasTrabajo;
+	}
+
+	public void setHorasTrabajo(HorasTrabajo horasTrabajo)
+	{
+		this.horasTrabajo = horasTrabajo;
 	}
 
 	public Integer getId()
@@ -71,24 +81,24 @@ public class SmartCheck
 		this.empleado = empleado;
 	}
 
-	public LocalDate getFecha()
+	public TipoCheck getTipo()
 	{
-		return fecha;
+		return tipo;
 	}
 
-	public void setFecha(LocalDate fecha)
+	public void setTipo(TipoCheck tipo)
 	{
-		this.fecha = fecha;
+		this.tipo = tipo;
 	}
 
-	public LocalTime getHora()
+	public LocalDateTime getCreado()
 	{
-		return hora;
+		return creado;
 	}
 
-	public void setHora(LocalTime hora)
+	public void setCreado(LocalDateTime creado)
 	{
-		this.hora = hora;
+		this.creado = creado;
 	}
 
 	public LocalTime getHoraBase()
@@ -109,32 +119,5 @@ public class SmartCheck
 	public void setDiferenciaMinutos(Long diferenciaMinutos)
 	{
 		this.diferenciaMinutos = diferenciaMinutos;
-	}
-
-	public TipoCheck getTipo()
-	{
-		return tipo;
-	}
-
-	public void setTipo(TipoCheck tipo)
-	{
-		this.tipo = tipo;
-	}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		SmartCheck that = (SmartCheck) o;
-
-		return Objects.equals(id, that.id);
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return id != null ? id.hashCode() : 0;
 	}
 }
