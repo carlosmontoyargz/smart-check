@@ -15,4 +15,9 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-jwt.secretKey: "StrawberryFieldsForever"
+  data:
+    rest:
+      base-path: api
+server:
+  port: 8080
+jwt.secret: "StrawberryFieldsForever"

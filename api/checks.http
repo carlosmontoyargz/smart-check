@@ -1,32 +1,32 @@
-POST http://localhost:8080/users/authenticate
+POST http://localhost:8080/authenticate
 Content-Type: application/json
 
 {
-  "username": "carlos.montoya.rdgz@gmail.com",
-  "password": "sipirili"
+  "username": "javainuse@gmail.com",
+  "password": "password"
 }
 
 ###
 
-GET http://localhost:8080/checks
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJtaW5vSldUIiwic3ViIjoiY2FybG9zLm1vbnRveWEucmRnekBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTcxMTg2NDQ3LCJleHAiOjE1NzExODcwNDd9._R13W3_lCGIFE6aM8TvmS-p89KRQ3gIEEpThJI-AC93oMJ4NM9aOnAmakosrVXtoUDR3V_CmycXQkpX2vKJf5g
+GET http://localhost:8080/api/checks
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
+
 
 ###
 
-POST http://localhost:8080/checks
+POST http://localhost:8080/api/checks
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tIiwiZXhwIjoxNTc0NTg0MjEwLCJpYXQiOjE1NzQ1NjYyMTB9.jjxWlJhYUhSg1E9RlNmSoaw-dIj-nX33tGn-YzyVtkKmnXS10p00qxtTGq0qROtKWQkN6515mto1ZicxZLihyg
 
 {
-  "empleado": "/users/2",
-  "fecha": "2020-12-31",
-  "hora": "14:20:32",
+  "empleado": "/users/999999",
   "tipoCheck": "SALIDA"
 }
 
 ###
 
 GET http://localhost:8080/checks/search/findByEmpleadoAndFecha?empleado=/users/1&fecha=16/10/19
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJtaW5vSldUIiwic3ViIjoiY2FybG9zLm1vbnRveWEucmRnekBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTcxMjAyOTA0LCJleHAiOjE1NzEyMDM1MDR9.fx1EE4-vK1pVBmdWv5wUhg7HI7xxS2ULhhUfxQWUneUVkj8OGDsyRyychp_1ciHHN9LzsvEoBRiAjgNyMxu5bw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJtaW5vSldUIiwic3ViIjoiY2FybG9zLm1vbnRveWEucmRnekBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTcyNTUwNDkzLCJleHAiOjE1NzI2MTA0OTN9.osSlTrE1p8aLX0FJDXEQLeo074S-FBeRDDvrAXo5i7HkHpCtBOvpf8W1QyXYvbRgIGe-FC_ufxHyV_gB9xcHmQ
 
 ###
 

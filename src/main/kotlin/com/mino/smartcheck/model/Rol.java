@@ -16,6 +16,7 @@ public class Rol
 	@GeneratedValue
 	private Integer id;
 
+	@Column(nullable = false)
 	private String nombre;
 	private String descripcion;
 

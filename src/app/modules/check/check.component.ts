@@ -66,28 +66,9 @@ export class CheckComponent implements OnInit {
 	enviarCheck() {
 		this.checkDisabled = true;
 
-		//FIXME la hora del check se debe asignar en el servidor
-		let today = new Date();
-		let dd = String(today.getDate()).padStart(2, '0');
-		let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-		let yyyy = today.getFullYear();
-		let hh = String(today.getHours()).padStart(2, '0');
-		let min = String(today.getMinutes()).padStart(2, '0');
-		let ss = String(today.getSeconds()).padStart(2, '0');
-
 		let check = new SmartCheck();
-		check.fecha = yyyy + '-' + mm + '-' + dd;
-		check.hora = hh + ':' + min + ':' + ss;
 		check.empleado = this.authenticationService.currentUserLocation;
 		check.tipoCheck = this.tipoCheck;
-		if (this.tipoCheck === 'ENTRADA') {
-			check.horaBase = this.horaEntrada;
-		} else if (this.tipoCheck === 'SALIDA') {
-			check.horaBase = this.horaSalida;
-		} else {
-			check.horaBase = ''
-		}
-
 		this.checkService
 				.postCheck(check)
 				.subscribe(

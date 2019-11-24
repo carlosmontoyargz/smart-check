@@ -11,15 +11,15 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.authority.AuthorityUtils
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
-import java.net.URI
 import java.util.*
 import java.util.stream.Collectors
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/empleados")
 @CrossOrigin("*")
 class UsuarioController
 	@Autowired constructor(val usuarioService: UsuarioService,
@@ -38,16 +38,6 @@ class UsuarioController
 			.obtenerTodos()
 			.map { modelMapper.map(it, UsuarioDto::class.java) }
 
-	@PostMapping("/authenticate")
-	fun login(@Valid @RequestBody request: UsuarioDto): UsuarioDto? =
-			usuarioService
-					.obtenerUsuario(request.username!!, request.password!!)
-					.map { modelMapper
-							.map(it, UsuarioDto::class.java)
-							.apply { token = getJwtToken(username!!) }
-					}
-					.orElse(null)
-
 	@PostMapping("/register")
 	fun register(@Valid @RequestBody usuarioDto: UsuarioDto,
 				 uriBuilder: UriComponentsBuilder): ResponseEntity<*> {
@@ -65,17 +55,27 @@ class UsuarioController
 		}
 	}
 
-	private fun getJwtToken(username: String) =
-			"Bearer ${Jwts.builder()
-					.setId("minoJWT")
-					.setSubject(username)
-					.claim("authorities", AuthorityUtils
-							.commaSeparatedStringToAuthorityList("ROLE_USER")
-							.stream()
-							.map { it.authority }
-							.collect(Collectors.toList()))
-					.setIssuedAt(Date(System.currentTimeMillis()))
-					.setExpiration(Date(System.currentTimeMillis() + 60000000))
-					.signWith(SignatureAlgorithm.HS512, smartCheckProperties.secretKey.toByteArray())
-					.compact()}"
+//	@PostMapping("/authenticate1")
+//	fun login(@Valid @RequestBody request: UsuarioDto): UsuarioDto? =
+//			usuarioService
+//					.obtenerUsuario(request.username!!, request.password!!)
+//					.map { modelMapper
+//							.map(it, UsuarioDto::class.java)
+//							.apply { token = getJwtToken(username!!) }
+//					}
+//					.orElse(null)
+//
+//	private fun getJwtToken(username: String) =
+//			"Bearer ${Jwts.builder()
+//					.setId("minoJWT")
+//					.setSubject(username)
+//					.claim("authorities", AuthorityUtils
+//							.commaSeparatedStringToAuthorityList("ROLE_USER")
+//							.stream()
+//							.map { it.authority }
+//							.collect(Collectors.toList()))
+//					.setIssuedAt(Date(System.currentTimeMillis()))
+//					.setExpiration(Date(System.currentTimeMillis() + 60000000))
+//					.signWith(SignatureAlgorithm.HS512, smartCheckProperties.secret.toByteArray())
+//					.compact()}"
 }

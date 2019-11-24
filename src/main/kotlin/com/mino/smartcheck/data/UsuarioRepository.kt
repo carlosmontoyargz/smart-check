@@ -10,7 +10,7 @@ import javax.swing.text.html.Option
  * @author Carlos Montoya
  * @since 18/09/2019
  */
-@RepositoryRestResource(path = "personas", collectionResourceRel = "personas")
+@RepositoryRestResource(path = "usuarios", collectionResourceRel = "usuarios")
 interface UsuarioRepository: JpaRepository<Usuario, Int>
 {
 	fun findByUsername(username: String): Optional<Usuario>

@@ -32,6 +32,20 @@ export interface NavData {
 	wrapper?: NavWrapper;
 }
 
+export const navItemsAdmin: NavData[] = [
+	{ title: true, name: 'Menu'},
+	{
+		name: 'Estadísticas',
+		url: '/check',
+		icon: 'icon-bell',
+	},
+	{
+		name: 'Empleados',
+		url: '/estadisticas',
+		icon: 'icon-pie-chart'
+	},
+];
+
 export const navItems: NavData[] = [
 	{
 		name: 'Dashboard',

@@ -25,6 +25,6 @@ class Runner
 	private var log = LogManager.getLogger()
 
 	override fun run(vararg args: String?) {
-		log.info("Secret key: {}", smartCheckProperties.secretKey)
+		log.info("Secret key: {}", smartCheckProperties.secret)
 	}
 }

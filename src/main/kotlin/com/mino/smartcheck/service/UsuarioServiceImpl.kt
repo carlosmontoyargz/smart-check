@@ -7,6 +7,7 @@ import com.mino.smartcheck.error.SignUpException
 import com.mino.smartcheck.model.Usuario
 import jdk.nashorn.internal.runtime.options.Option
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.lang.RuntimeException
 import java.util.*
@@ -16,7 +17,9 @@ class UsuarioServiceImpl
 	@Autowired constructor(
 			val usuarioRepository: UsuarioRepository,
 			val rolRepository: RolRepository,
-			val organizacionRepository: OrganizacionRepository) : UsuarioService
+			val organizacionRepository: OrganizacionRepository,
+			val passwordEncoder: PasswordEncoder)
+	: UsuarioService
 {
 	override fun obtenerTodos(): List<Usuario> = usuarioRepository.findAll()
 
@@ -38,6 +41,8 @@ class UsuarioServiceImpl
 
 		usuario.organizacion = organizacionRepository.findById(1)
 				.orElseThrow { RuntimeException() }
+
+		usuario.password = passwordEncoder.encode(usuario.password)
 
 		return usuarioRepository.save(usuario)
 	}
