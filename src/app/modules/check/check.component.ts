@@ -67,8 +67,7 @@ export class CheckComponent implements OnInit {
 		this.checkDisabled = true;
 
 		let check = new SmartCheck();
-		check.empleado = this.authenticationService.currentUserLocation;
-		check.tipoCheck = this.tipoCheck;
+		check.tipo = this.tipoCheck;
 		this.checkService
 				.postCheck(check)
 				.subscribe(

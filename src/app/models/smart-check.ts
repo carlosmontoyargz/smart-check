@@ -3,6 +3,6 @@ export class SmartCheck {
 	fecha: string;
 	hora: string;
 	horaBase: string;
-	tipoCheck: string;
+	tipo: string;
 	diferenciaMinutos: number;
 }

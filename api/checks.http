@@ -11,21 +11,20 @@ Content-Type: application/json
 GET http://localhost:8080/api/checks
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDYwMjgxMSwiaWF0IjoxNTc0NTg0ODExfQ.e-qCrWcbqn-rqUbLOT9LJdK17LUQBW0L2LS8kqw2w3RumeGBDenSAoTgp65hdbEZ-_aWzDMDNtDQbADL6faa3A
 
-
 ###
 
 POST http://localhost:8080/api/checks
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDYwMjgxMSwiaWF0IjoxNTc0NTg0ODExfQ.e-qCrWcbqn-rqUbLOT9LJdK17LUQBW0L2LS8kqw2w3RumeGBDenSAoTgp65hdbEZ-_aWzDMDNtDQbADL6faa3A
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJpby5hbnp1cmVzQG91dGxvb2suY29tIiwiZXhwIjoxNTc0NjA4NTAwLCJpYXQiOjE1NzQ1OTA1MDB9.rHFoAR_1uIhHlxiWxf6K-XGtQk__ZgU3bYlnj5U91fazUyh8BsdcsDvlVWi4mF8c3iEVV4p7w5tt0x2GuDwFuQ
 Content-Type: application/json
 
 {
-  "tipo": "SALIDA"
+  "tipo": "ENTRADA"
 }
 
 ###
 
-GET http://localhost:8080/checks/search/findByEmpleadoAndFecha?empleado=/users/1&fecha=16/10/19
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJtaW5vSldUIiwic3ViIjoiY2FybG9zLm1vbnRveWEucmRnekBnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTcyNTUwNDkzLCJleHAiOjE1NzI2MTA0OTN9.osSlTrE1p8aLX0FJDXEQLeo074S-FBeRDDvrAXo5i7HkHpCtBOvpf8W1QyXYvbRgIGe-FC_ufxHyV_gB9xcHmQ
+GET http://localhost:8080/api/checks/search/findMyChecksFrom?fecha=24/11/19
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJpby5hbnp1cmVzQG91dGxvb2suY29tIiwiZXhwIjoxNTc0NjA4NTAwLCJpYXQiOjE1NzQ1OTA1MDB9.rHFoAR_1uIhHlxiWxf6K-XGtQk__ZgU3bYlnj5U91fazUyh8BsdcsDvlVWi4mF8c3iEVV4p7w5tt0x2GuDwFuQ
 
 ###
 

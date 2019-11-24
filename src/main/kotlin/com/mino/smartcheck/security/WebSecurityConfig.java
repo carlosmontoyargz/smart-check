@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -64,5 +65,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().cors()
 		;
+	}
+
+	@Bean
+	public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+		return new SecurityEvaluationContextExtension();
 	}
 }
