@@ -5,11 +5,15 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {OrganizacionComponent} from "./organizacion.component";
 import {OrganizacionRoutingModule} from "./organizacion.routing.module";
 
+// Modal Component
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 @NgModule({
 	imports: [
 		CommonModule,
 		OrganizacionRoutingModule,
-		BsDropdownModule.forRoot()
+		BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
 	],
 	declarations: [
 		OrganizacionComponent

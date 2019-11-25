@@ -3,6 +3,7 @@ export class User {
 	username: string;
 	password: string;
 	firstName: string;
+	creado: string;
 	lastName: string;
 	rolNombre: string;
 	token: string;

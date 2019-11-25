@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {CheckComponent} from "./check.component";
 
-// import { CardsComponent } from './cards.component';
-
 const routes: Routes = [
 	{
 		path: '',
@@ -11,19 +9,6 @@ const routes: Routes = [
 		data: {
 			title: 'Check'
 		},
-		/*children: [
-			{
-				path: '',
-				redirectTo: 'cards'
-			},
-			{
-				path: 'cards',
-				component: CardsComponent,
-				data: {
-					title: 'Cards'
-				}
-			},
-		]*/
 	}
 ];
 

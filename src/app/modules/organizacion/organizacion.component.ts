@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
 import {HorasTrabajoService} from "../../services/horasTrabajo.service";
 import {OrganizacionService} from "../../services/organizacion.service";
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
 	templateUrl: 'organizacion.component.html'
@@ -13,6 +14,8 @@ export class OrganizacionComponent implements OnInit {
               private horasTrabajoService: HorasTrabajoService) {}
 
 	user = this.authenticationService.currentUserValue;
+
+  @ViewChild('successModal', {static: false}) public successModal: ModalDirective;
 
 	totalMinutos = '';
 	totalExtras = '';
@@ -64,5 +67,18 @@ export class OrganizacionComponent implements OnInit {
     let horas = Math.trunc(min / 60);
     let minutes = Math.trunc(min % 60);
     return `${String(horas)}:${String(minutes).padStart(2, '0')}`
+  }
+
+  enviarEvaluacion() {
+    // this.respuestasCorrectas = this.calcularRespuestasCorrectas();
+    // let p = new Puntaje();
+    // p.leccion = this.leccion._links.self.href;
+    // p.usuario = this.authenticationService.currentUserValue.username;
+    // p.puntaje = this.respuestasCorrectas;
+    // this.puntajeService.postPuntaje(p).subscribe(
+    //   data => { this.successModal.show() },
+    //   error => { console.log(error)}
+    //);
+    this.successModal.hide();
   }
 }

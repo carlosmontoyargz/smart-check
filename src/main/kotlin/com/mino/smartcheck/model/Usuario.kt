@@ -1,5 +1,8 @@
 package com.mino.smartcheck.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import org.springframework.data.annotation.CreatedDate
+import java.time.LocalDateTime
 import javax.persistence.*
 
 /**
@@ -15,6 +18,7 @@ class Usuario
 	@Column(name = "correo", unique = true, nullable = false)
 	var username: String? = null
 
+	@JsonIgnore
 	@Column(name = "contrasena", nullable = false)
 	var password: String? = null
 
@@ -23,6 +27,9 @@ class Usuario
 
 	@ManyToOne(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
 	var organizacion: Organizacion? = null
+
+//	@CreatedDate
+	var creado: LocalDateTime? = LocalDateTime.now()
 
 	override fun toString(): String {
 		return "Usuario(id=$id, username=$username, password=$password, rol=$rol, organizacion=$organizacion)"

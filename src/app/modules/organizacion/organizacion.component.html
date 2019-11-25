@@ -1,6 +1,5 @@
 <div class="animated fadeIn">
   <div class="row">
-
     <div class="col-sm-6">
       <div class="card">
         <div class="card-header">
@@ -8,7 +7,6 @@
         </div>
         <div class="card-body">
           <h2>{{organizacion}}</h2>
-
           <div class="form-group row">
             <label class="col-md-6 col-form-label" for="disabled-input-1">Hora entrada</label>
             <div class="col-md-6">
@@ -25,10 +23,13 @@
                      disabled>
             </div>
           </div>
+          <button (click)="successModal.show()"
+                  type="button" class="btn btn-info mr-1" data-toggle="modal">
+            Editar horario
+          </button>
         </div>
       </div>
     </div>
-
     <div class="col-sm-6">
       <div class="card">
         <div class="card-header">
@@ -68,7 +69,42 @@
           </table>
         </div>
       </div>
-
     </div>
   </div>
 </div>
+
+<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar horario</h4>
+        <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label class="col-md-6 col-form-label" for="disabled-input-3">Hora entrada</label>
+          <div class="col-md-6">
+            <input type="text" id="disabled-input-3" name="entrada" class="form-control"
+                   value="{{orgHoraEntrada}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-6 col-form-label" for="disabled-input-4">Hora salida</label>
+          <div class="col-md-6">
+            <input type="text" id="disabled-input-4" name="salida" class="form-control"
+                   value="{{orgHoraSalida}}">
+          </div>
+        </div>
+        <button type="button" class="btn btn-info mr-1" data-toggle="modal" (click)="enviarEvaluacion()">
+          Enviar
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Cerrar</button>
+        <!--<button type="button" class="btn btn-success">Save changes</button>-->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

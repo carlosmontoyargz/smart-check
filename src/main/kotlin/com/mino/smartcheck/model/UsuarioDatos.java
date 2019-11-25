@@ -3,6 +3,7 @@ package com.mino.smartcheck.model;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -21,6 +22,8 @@ public interface UsuarioDatos
 
 	@Value("#{target.username}")
 	String getLastName();
+
+	LocalDateTime getCreado();
 
 	@Value("#{target.rol.nombre}")
 	String getRolNombre();
