@@ -5,12 +5,8 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Carlos Montoya
@@ -32,25 +28,23 @@ public class SmartCheck
 	@Enumerated(EnumType.STRING)
 	private TipoCheck tipo;
 
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private HorasTrabajo horasTrabajo;
+
 	@Column(nullable = false)
 	private LocalDateTime creado;
 
 	private LocalTime horaBase;
 
-	private Long diferenciaMinutos;
+	private Long diferencia;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonIgnore
-	private HorasTrabajo horasTrabajo;
-
-	public void asignarDiferenciaMinutos()
-	{
+	public void asignarDiferenciaMinutos() {
 		if (horaBase != null)
-			diferenciaMinutos = Duration
+			diferencia = Duration
 					.between(horaBase, creado.toLocalTime())
 					.toMinutes();
-		else
-			diferenciaMinutos = 0L;
+		else diferencia = 0L;
 	}
 
 	public HorasTrabajo getHorasTrabajo()
@@ -113,13 +107,13 @@ public class SmartCheck
 		this.horaBase = horaBase;
 	}
 
-	public Long getDiferenciaMinutos()
+	public Long getDiferencia()
 	{
-		return diferenciaMinutos;
+		return diferencia;
 	}
 
-	public void setDiferenciaMinutos(Long diferenciaMinutos)
+	public void setDiferencia(Long diferencia)
 	{
-		this.diferenciaMinutos = diferenciaMinutos;
+		this.diferencia = diferencia;
 	}
 }

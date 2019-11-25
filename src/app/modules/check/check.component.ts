@@ -36,7 +36,7 @@ export class CheckComponent implements OnInit {
 								}
 								else { this.tipoCheck = 'ENTRADA' }
 
-								let checkSalida = data.filter(r => r.tipoCheck === 'SALIDA').pop();
+								let checkSalida = data.filter(r => r.tipo === 'SALIDA').pop();
 								if (checkSalida !== null) {
 									this.horaSalida = checkSalida.hora;
 									this.tipoCheck = '';

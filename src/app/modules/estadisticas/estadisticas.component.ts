@@ -129,7 +129,7 @@ export class EstadisticasComponent implements OnInit
 					let c = checks
 						.filter(value =>
 								i + 1 === Number(value.fecha.substr(8, 2)) &&
-								value.tipoCheck === 'ENTRADA')
+								value.tipo === 'ENTRADA')
 						.pop();
 
 					let diff = 0;
@@ -143,7 +143,7 @@ export class EstadisticasComponent implements OnInit
 					let c = checks
 							.filter(value =>
 									i + 1 === Number(value.fecha.substr(8, 2)) &&
-									value.tipoCheck === 'SALIDA')
+									value.tipo === 'SALIDA')
 							.pop();
 
 					let diff = 0;

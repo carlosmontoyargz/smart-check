@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component
 import java.time.Duration
 
 import java.time.LocalDateTime
+import kotlin.math.absoluteValue
 
 /**
  * @author Carlos Montoya
@@ -29,50 +30,66 @@ class BeforeCheckSaveHandler
 {
 	@HandleBeforeCreate
 	fun handleCheckSave(check: SmartCheck) {
-		val now = LocalDateTime.now()
-		val firstDayMonth = now.toLocalDate().withDayOfMonth(1)
-		val usuario = usuarioRepository
+		asignarDatosCheck(check)
+		actualizarEstadisticasTrabajo(check)
+	}
+
+	private fun asignarDatosCheck(check: SmartCheck) {
+		check.creado = LocalDateTime.now()
+		check.empleado = usuarioRepository
 				.findByUsername(
 						(SecurityContextHolder.getContext()
-								.authentication.principal as User)
-								.username)
+								.authentication.principal as User).username)
 				.orElseThrow { RuntimeException("No se encontro el usuario") }
-
-		// Se asignan las horas del check
-		check.creado = now
-		check.empleado = usuario
 		check.horaBase = when (check.tipo) {
 			ENTRADA -> check.empleado.organizacion!!.horaEntrada
 			SALIDA -> check.empleado.organizacion!!.horaSalida
 			else -> null
 		}
+		val firstDayMonth = check.creado.toLocalDate().withDayOfMonth(1)
 		check.horasTrabajo = horasTrabajoRepository
-				.findFirstByFechaInicioAndUsuario(firstDayMonth, usuario)
+				.findByFechaInicioAndPrincipal(firstDayMonth)
 				.orElseGet {
 					HorasTrabajo().apply {
-						minutos = 0
-						this.usuario = usuario
+						usuario = check.empleado
 						fechaInicio = firstDayMonth
-						fechaFinal = firstDayMonth
-								.withDayOfMonth(firstDayMonth.lengthOfMonth())
+						fechaFinal = firstDayMonth.withDayOfMonth(
+								firstDayMonth.lengthOfMonth())
 					}
 				}
 		check.asignarDiferenciaMinutos()
+	}
 
-		if (check.tipo == SALIDA) {
-			log.info("Inicia guardado de horas de trabajo")
+	private fun actualizarEstadisticasTrabajo(check: SmartCheck) {
+		// Se guardan las estadisticas
+		log.info("Inicia actualizacion de horas de trabajo")
+		if (check.tipo == ENTRADA) {
+			if (check.diferencia < 0) {
+				check.horasTrabajo.entradasTemprano +=
+						check.diferencia.absoluteValue
+			}
+			else if (check.diferencia > 0) {
+				check.horasTrabajo.retrasos += check.diferencia
+			}
+		}
+		else if (check.tipo == SALIDA) {
+			if (check.diferencia < 0) {
+				check.horasTrabajo.salidasTemprano +=
+						check.diferencia.absoluteValue
+			}
+			else if (check.diferencia > 0) {
+				check.horasTrabajo.extras += check.diferencia
+			}
+			// Se guardan las horas de trabajo
 			val chkEntrada = checkRepository
 					.findFirstByTipoOrderByCreadoDesc(ENTRADA)
 					.orElseThrow { val ex = RuntimeException("No hay check de entrada"); ex }
-
 			check.horasTrabajo.minutos += Duration
-					.between(chkEntrada.creado, check.creado)
-					.toMinutes()
+					.between(chkEntrada.creado, check.creado).toMinutes()
+
 			log.info("Minutos de trabajo actualizados {}", Supplier { check.horasTrabajo.minutos })
 		}
 	}
 
-	companion object {
-		private val log = LogManager.getLogger()
-	}
+	companion object { private val log = LogManager.getLogger() }
 }

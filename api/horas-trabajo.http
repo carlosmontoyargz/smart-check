@@ -1,0 +1,19 @@
+POST http://localhost:8080/authenticate
+Content-Type: application/json
+
+{
+  "username": "carlos.montoya.rdgz@gmail.com",
+  "password": "sipirili"
+}
+
+###
+
+GET http://localhost:8080/api/horasTrabajo
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDY2MTgwNywiaWF0IjoxNTc0NjQzODA3fQ.h37XaZUJOZyn1kdhWn8ul4fywKPKW9fGBu7XmIPJ-TRnyb4zu55_XNbvauCSOsKKZnfM6ZhiQL5ILMOWQAX-Sw
+
+###
+
+GET http://localhost:8080/api/horasTrabajo/83/checks
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDY2MTgwNywiaWF0IjoxNTc0NjQzODA3fQ.h37XaZUJOZyn1kdhWn8ul4fywKPKW9fGBu7XmIPJ-TRnyb4zu55_XNbvauCSOsKKZnfM6ZhiQL5ILMOWQAX-Sw
+
+###

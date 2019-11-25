@@ -22,8 +22,8 @@ class StatisticsController
 		val firstDayOfMonth = LocalDate.now().withDayOfMonth(1)
 		return StatisticsResult().apply {
 			//minutosTrabajados = horasTrabajoRepository.findTotalMinutosTrabajados(firstDayOfMonth)
-			minutosExtra = checkRepository.findTotalPositivo(SALIDA)
-			minutosRetrasos = checkRepository.findTotalPositivo(ENTRADA)
+//			minutosExtra = checkRepository.findTotalPositivo(SALIDA)
+//			minutosRetrasos = checkRepository.findTotalPositivo(ENTRADA)
 		}
 	}
 }
