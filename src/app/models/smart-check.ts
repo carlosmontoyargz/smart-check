@@ -16,3 +16,9 @@ export class HorasTrabajo {
   entradasTemprano: number;
   _links: any;
 }
+
+export class Organizacion {
+  nombre: string;
+  horaEntrada: string;
+  horaSalida: string;
+}

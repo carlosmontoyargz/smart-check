@@ -1,0 +1,14 @@
+POST http://localhost:8080/authenticate
+Content-Type: application/json
+
+{
+  "username": "carlos.montoya.rdgz@gmail.com",
+  "password": "sipirili"
+}
+
+###
+
+GET http://localhost:8080/api/organizaciones/search/findFirstByNombre?nombre=BUAP
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDY4ODA2NiwiaWF0IjoxNTc0NjcwMDY2fQ.Bpu9gSfc-2btUe53HrAOWNC_ssQ6_AbwuDAbEF6unQN7PuXrCRPXL_3a2kJp9BuR7rNpUgH2c6a2-BpgSndYLg
+
+###

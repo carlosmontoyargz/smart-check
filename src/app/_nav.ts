@@ -57,7 +57,7 @@ export const navItems: NavData[] = [
 		}
 	},
 
-	{ title: true, name: 'Menu'},
+	{ title: true, name: 'EMPLEADO'},
 	{
 		name: 'Check',
 		url: '/check',
@@ -66,8 +66,20 @@ export const navItems: NavData[] = [
 	{
 		name: 'Estadisticas',
 		url: '/estadisticas',
-		icon: 'icon-pie-chart'
+		icon: 'icon-graph'
 	},
+
+  { title: true, name: 'ADMIN'},
+  {
+    name: 'Organizacion',
+    url: '/organizacion',
+    icon: 'cui-briefcase'
+  },
+  {
+    name: 'Empleados',
+    url: '/empleados',
+    icon: 'cui-people'
+  },
 
 	{ title: true, name: 'Theme' },
 	{

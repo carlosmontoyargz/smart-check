@@ -26,6 +26,12 @@ export class HorasTrabajoService
       });
   }
 
+  obtenerTotal(field: string) {
+    return this.http.get<number>(
+      `${environment.apiUrl}/horasTrabajo/search/findTotal`,
+      { params: { field: field } });
+  }
+
   postCheck(check: SmartCheck) {
     return this.http.post(`${environment.apiUrl}/checks`, check);
   }

@@ -1,0 +1,74 @@
+<div class="animated fadeIn">
+  <div class="row">
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa cui-briefcase"></i> Organizacion
+        </div>
+        <div class="card-body">
+          <h2>{{organizacion}}</h2>
+
+          <div class="form-group row">
+            <label class="col-md-6 col-form-label" for="disabled-input-1">Hora entrada</label>
+            <div class="col-md-6">
+              <input type="text" id="disabled-input-1" name="disabled-input" class="form-control"
+                     placeholder="{{orgHoraEntrada}}"
+                     disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-6 col-form-label" for="disabled-input-2">Hora salida</label>
+            <div class="col-md-6">
+              <input type="text" id="disabled-input-2" name="disabled-input" class="form-control"
+                     placeholder="{{orgHoraSalida}}"
+                     disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Totales del mes
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>Total de horas</th>
+                <!--<th>Fecha</th>-->
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Horas trabajadas</td>
+                <td>{{totalMinutos}}</td>
+              </tr>
+              <tr>
+                <td>Retrasos</td>
+                <td>{{totalRetrasos}}</td>
+              </tr>
+              <tr>
+                <td>Horas extra</td>
+                <td>{{totalExtras}}</td>
+              </tr>
+              <tr>
+                <td>Entradas temprano</td>
+                <td>{{totalEntradasTemprano}}</td>
+              </tr>
+              <tr>
+                <td>Salidas temprano</td>
+                <td>{{totalSalidasTemprano}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
