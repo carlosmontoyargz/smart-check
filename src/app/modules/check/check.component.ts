@@ -62,6 +62,8 @@ export class CheckComponent implements OnInit {
 
 		let check = new SmartCheck();
 		check.tipo = this.tipoCheck;
+		console.log("Se ha enviado check...");
+		console.log(check);
 		this.checkService
 				.postCheck(check)
 				.subscribe(

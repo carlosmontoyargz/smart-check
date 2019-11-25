@@ -31,16 +31,10 @@ export class CheckService
 				.pipe(map<any, SmartCheck[]>(r => { return r._embedded.checks }))
 	}
 
-	obtenerChecksDelMes() {
-		return this.http.get<any>(
-				`${environment.apiUrl}/checks/search/findByCreadoGreaterThanEqual`,
-				{
-					params: {
-						"fecha": this.parseFirstDayOfCurrentMonth()
-					}
-				})
-				.pipe(map<any, SmartCheck[]>(r => { return r._embedded.checks }))
-	}
+	obtenerChecksDe(url: string) {
+	  return this.http.get<any>(url)
+      .pipe(map<any, SmartCheck[]>(r => { return r._embedded.checks }))
+  }
 
 	private parseCurrentDate(): string {
 		let today = new Date();

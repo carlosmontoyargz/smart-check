@@ -17,10 +17,10 @@
       </div><!--/.row-->
       <div class="chart-wrapper" style="height:300px;margin-top:40px;">
         <canvas baseChart class="chart"
-                [datasets]="mainChartData1"
-                [labels]="mainChartLabels"
-                [options]="mainChartOptions"
-                [colors]="mainChartColours1"
+                [datasets]="datasetEntradas"
+                [labels]="labelsDias"
+                [options]="opcionesGraficas"
+                [colors]="coloresEntradas"
                 [legend]="mainChartLegend"
                 [chartType]="mainChartType"></canvas>
       </div>
@@ -62,10 +62,10 @@
       </div><!--/.row-->
       <div class="chart-wrapper" style="height:300px;margin-top:40px;">
         <canvas baseChart class="chart"
-                [datasets]="mainChartData2"
-                [labels]="mainChartLabels"
-                [options]="mainChartOptions"
-                [colors]="mainChartColours2"
+                [datasets]="datasetSalidas"
+                [labels]="labelsDias"
+                [options]="opcionesGraficas"
+                [colors]="coloresSalidas"
                 [legend]="mainChartLegend"
                 [chartType]="mainChartType"></canvas>
       </div>
