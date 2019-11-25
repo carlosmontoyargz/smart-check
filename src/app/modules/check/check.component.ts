@@ -23,23 +23,24 @@ export class CheckComponent implements OnInit {
 		this.checkService
 				.obtenerChecksDeHoy()
 				.subscribe(
-						data => {
+						checks => {
 							console.log("Los checks de hoy se han descargado correctamente");
-							console.log(data);
+							console.log(checks);
 
-							if (data.length > 0) {
-								let checkEntrada = data.filter(r => r.tipoCheck === 'ENTRADA').pop();
-								if (checkEntrada !== null) {
-									this.horaEntrada = checkEntrada.hora;
+							if (checks.length > 0) {
+								let checkEntrada = checks.filter(r => r.tipo === 'ENTRADA').pop();
+								if (checkEntrada) {
+									this.horaEntrada = new Date(checkEntrada.creado).toTimeString().split(' ')[0];
 									this.tipoCheck = 'SALIDA';
 									this.checkDisabled = false;
 								}
 								else { this.tipoCheck = 'ENTRADA' }
 
-								let checkSalida = data.filter(r => r.tipo === 'SALIDA').pop();
-								if (checkSalida !== null) {
-									this.horaSalida = checkSalida.hora;
+								let checkSalida = checks.filter(r => r.tipo === 'SALIDA').pop();
+								if (checkSalida) {
+									this.horaSalida = new Date(checkSalida.creado).toTimeString().split(' ')[0];
 									this.tipoCheck = '';
+									this.checkDisabled = true;
 								}
 								else { this.checkDisabled = false }
 							}
@@ -54,13 +55,6 @@ export class CheckComponent implements OnInit {
 							this.checkDisabled = false;
 						}
 				);
-
-		// generate random values for mainChart
-		for (let i = 0; i <= this.mainChartElements; i++) {
-			this.mainChartData1.push(this.random(50, 200));
-			this.mainChartData2.push(this.random(80, 100));
-			this.mainChartData3.push(65);
-		}
 	}
 
 	enviarCheck() {
@@ -71,25 +65,27 @@ export class CheckComponent implements OnInit {
 		this.checkService
 				.postCheck(check)
 				.subscribe(
-						data => {
-							console.log("El check ha sido subido correctamente");
-							console.log(data);
-							this.checkDisabled = false;
-							if (this.tipoCheck === 'ENTRADA') {
-								this.horaEntrada = check.hora;
-								this.tipoCheck = 'SALIDA';
-							}
-							else if (this.tipoCheck === 'SALIDA') {
-								this.horaSalida = check.hora;
-								this.tipoCheck = '';
-								this.checkDisabled = true;
-							}
-						},
-						error => {
-							console.log("Ocurrio un error al subir el check");
-							console.log(error);
-							this.checkDisabled = false;
+				  checkGuardado => {
+				    console.log("El check ha sido subido correctamente");
+						console.log(checkGuardado);
+						this.checkDisabled = false;
+						if (this.tipoCheck === 'ENTRADA') {
+							this.horaEntrada = new Date((<SmartCheck> checkGuardado).creado)
+                .toTimeString().split(' ')[0];
+							this.tipoCheck = 'SALIDA';
 						}
+						else if (this.tipoCheck === 'SALIDA') {
+							this.horaSalida = new Date((<SmartCheck> checkGuardado).creado)
+                .toTimeString().split(' ')[0];
+							this.tipoCheck = '';
+							this.checkDisabled = true;
+						}
+					},
+					error => {
+					  console.log("Ocurrio un error al subir el check");
+						console.log(error);
+						this.checkDisabled = false;
+					}
 				);
 	}
 
@@ -132,11 +128,4 @@ export class CheckComponent implements OnInit {
 	];
 	public barChart1Legend = false;
 	public barChart1Type = 'bar';
-
-	// mainChart
-
-	public mainChartElements = 27;
-	public mainChartData1: Array<number> = [];
-	public mainChartData2: Array<number> = [];
-	public mainChartData3: Array<number> = [];
 }

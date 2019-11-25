@@ -1,8 +1,7 @@
 export class SmartCheck {
 	empleado: string;
-	fecha: string;
-	hora: string;
+	creado: string;
 	horaBase: string;
 	tipo: string;
-	diferenciaMinutos: number;
+	diferencia: number;
 }

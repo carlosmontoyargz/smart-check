@@ -21,7 +21,8 @@
           </div>-->
           <button type="button" class="btn btn-transparent p-0 float-right"
                   (click)="enviarCheck()"
-                  [disabled]="checkDisabled">
+                  [disabled]="checkDisabled"
+                  [hidden]="checkDisabled">
             <i class="cui-check"></i>
           </button>
           <div class="text-value">Check</div>
@@ -58,7 +59,7 @@
                 </div><!--/.col-->
                 <div class="col-sm-6">
                   <div class="callout callout-success">
-                    <small class="text-muted">Check de entrada de hoy</small>
+                    <small class="text-muted">Entrada de hoy</small>
                     <br>
                     <strong class="h4">{{horaEntrada}}</strong>
                   </div>
@@ -77,7 +78,7 @@
                 </div><!--/.col-->
                 <div class="col-sm-6">
                   <div class="callout callout-danger">
-                    <small class="text-muted">Check de salida de hoy</small>
+                    <small class="text-muted">Salida de hoy</small>
                     <br>
                     <strong class="h4">{{horaSalida}}</strong>
                   </div>

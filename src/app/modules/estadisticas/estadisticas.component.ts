@@ -128,12 +128,10 @@ export class EstadisticasComponent implements OnInit
 				for (let i = 0; i < this.mainChartElements; i++) {
 					let c = checks
 						.filter(value =>
-								i + 1 === Number(value.fecha.substr(8, 2)) &&
-								value.tipo === 'ENTRADA')
+								i + 1 === new Date(value.creado).getDate() && value.tipo === 'ENTRADA')
 						.pop();
 
-					let diff = 0;
-					if (c) { diff = c.diferenciaMinutos }
+					let diff = c.diferencia | 0;
 					this.mainChartArray1[i] = diff;
 
 					if (diff > 0) minTarde += diff;
@@ -142,12 +140,10 @@ export class EstadisticasComponent implements OnInit
 				for (let i = 0; i < this.mainChartElements; i++) {
 					let c = checks
 							.filter(value =>
-									i + 1 === Number(value.fecha.substr(8, 2)) &&
-									value.tipo === 'SALIDA')
+									i + 1 === new Date(value.creado).getDate() && value.tipo === 'SALIDA')
 							.pop();
 
-					let diff = 0;
-					if (c) { diff = c.diferenciaMinutos }
+          let diff = c.diferencia | 0;
 					this.mainChartArray2[i] = diff;
 
 					if (diff > 0) minExtra += diff;
