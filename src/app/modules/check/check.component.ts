@@ -20,41 +20,39 @@ export class CheckComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.usuario = this.authenticationService.currentUserValue;
-		this.checkService
-				.obtenerChecksDeHoy()
-				.subscribe(
-						checks => {
-							console.log("Los checks de hoy se han descargado correctamente");
-							console.log(checks);
+		this.checkService.obtenerChecksDeHoy().subscribe(
+			checks => {
+				console.log("Los checks de hoy se han descargado correctamente");
+				console.log(checks);
 
-							if (checks.length > 0) {
-								let checkEntrada = checks.filter(r => r.tipo === 'ENTRADA').pop();
-								if (checkEntrada) {
-									this.horaEntrada = new Date(checkEntrada.creado).toTimeString().split(' ')[0];
-									this.tipoCheck = 'SALIDA';
-									this.checkDisabled = false;
-								}
-								else { this.tipoCheck = 'ENTRADA' }
+				if (checks.length > 0) {
+					let checkEntrada = checks.filter(r => r.tipo === 'ENTRADA').pop();
+					if (checkEntrada) {
+						this.horaEntrada = new Date(checkEntrada.creado).toTimeString().split(' ')[0];
+						this.tipoCheck = 'SALIDA';
+						this.checkDisabled = false;
+					}
+					else { this.tipoCheck = 'ENTRADA' }
 
-								let checkSalida = checks.filter(r => r.tipo === 'SALIDA').pop();
-								if (checkSalida) {
-									this.horaSalida = new Date(checkSalida.creado).toTimeString().split(' ')[0];
-									this.tipoCheck = '';
-									this.checkDisabled = true;
-								}
-								else { this.checkDisabled = false }
-							}
-							else {
-								this.tipoCheck = 'ENTRADA';
-								this.checkDisabled = false
-							}
-						},
-						error => {
-							console.log("Ocurrio un error al descargar los checks");
-							console.log(error);
-							this.checkDisabled = false;
-						}
-				);
+					let checkSalida = checks.filter(r => r.tipo === 'SALIDA').pop();
+					if (checkSalida) {
+						this.horaSalida = new Date(checkSalida.creado).toTimeString().split(' ')[0];
+						this.tipoCheck = '';
+						this.checkDisabled = true;
+					}
+					else { this.checkDisabled = false }
+				}
+				else {
+					this.tipoCheck = 'ENTRADA';
+					this.checkDisabled = false
+				}
+			},
+			error => {
+				console.log("Ocurrio un error al descargar los checks");
+				console.log(error);
+				this.checkDisabled = false;
+			}
+		);
 	}
 
 	enviarCheck() {
@@ -64,35 +62,29 @@ export class CheckComponent implements OnInit {
 		check.tipo = this.tipoCheck;
 		console.log("Se ha enviado check...");
 		console.log(check);
-		this.checkService
-				.postCheck(check)
-				.subscribe(
-				  checkGuardado => {
-				    console.log("El check ha sido subido correctamente");
-						console.log(checkGuardado);
-						this.checkDisabled = false;
-						if (this.tipoCheck === 'ENTRADA') {
-							this.horaEntrada = new Date((<SmartCheck> checkGuardado).creado)
-                .toTimeString().split(' ')[0];
-							this.tipoCheck = 'SALIDA';
-						}
-						else if (this.tipoCheck === 'SALIDA') {
-							this.horaSalida = new Date((<SmartCheck> checkGuardado).creado)
-                .toTimeString().split(' ')[0];
-							this.tipoCheck = '';
-							this.checkDisabled = true;
-						}
-					},
-					error => {
-					  console.log("Ocurrio un error al subir el check");
-						console.log(error);
-						this.checkDisabled = false;
-					}
-				);
-	}
-
-	public random(min: number, max: number) {
-		return Math.floor(Math.random() * (max - min + 1) + min);
+		this.checkService.postCheck(check).subscribe(
+		  checkGuardado => {
+		    console.log("El check ha sido subido correctamente");
+				console.log(checkGuardado);
+				this.checkDisabled = false;
+				if (this.tipoCheck === 'ENTRADA') {
+					this.horaEntrada = new Date((<SmartCheck> checkGuardado).creado)
+            .toTimeString().split(' ')[0];
+					this.tipoCheck = 'SALIDA';
+				}
+				else if (this.tipoCheck === 'SALIDA') {
+					this.horaSalida = new Date((<SmartCheck> checkGuardado).creado)
+            .toTimeString().split(' ')[0];
+					this.tipoCheck = '';
+					this.checkDisabled = true;
+				}
+			},
+			error => {
+			  console.log("Ocurrio un error al subir el check");
+				console.log(error);
+				this.checkDisabled = false;
+			}
+		);
 	}
 
 	// barChart1
