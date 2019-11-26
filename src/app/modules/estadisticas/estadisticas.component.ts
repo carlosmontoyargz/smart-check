@@ -49,22 +49,24 @@ export class EstadisticasComponent implements OnInit
         .then(checks => {
           console.log("Se han descargado los checks del periodo");
           console.log(checks);
-          this.datosGraficaEntradas.fill(0);
+          let datosEntradas = new Array<number>(this.mainChartElements).fill(0);
           for (let i = 0; i < this.mainChartElements; i++) {
             let entrada = checks
               .filter(v => v.tipo === 'ENTRADA' && i + 1 === new Date(v.creado).getDate())
               .pop();
-            if (entrada) { this.datosGraficaEntradas[i] = entrada.diferencia }
+            if (entrada) { datosEntradas[i] = entrada.diferencia }
           }
-          this.datosGraficaSalidas.fill(0);
+          this.datasetEntradas[0].data = datosEntradas;
+          let datosSalidas = new Array<number>(this.mainChartElements).fill(0);
           for (let i = 0; i < this.mainChartElements; i++) {
             let salida = checks
               .filter(v => v.tipo === 'SALIDA' && i + 1 === new Date(v.creado).getDate())
               .pop();
-            if (salida) { this.datosGraficaSalidas[i] = salida.diferencia }
+            if (salida) { datosSalidas[i] = salida.diferencia }
           }
-          console.log(this.datosGraficaEntradas);
-          console.log(this.datosGraficaSalidas);
+          this.datasetSalidas[0].data = datosSalidas;
+          console.log(this.datasetEntradas[0].data);
+          console.log(this.datasetSalidas[0].data);
           return 1;
         })
         .catch(e => { console.info(e) });
@@ -81,9 +83,8 @@ export class EstadisticasComponent implements OnInit
   public mainChartElements = 31;
 
   // grafica de entradas
-  public datosGraficaEntradas: Array<number> = new Array<number>(this.mainChartElements);
   public datasetEntradas: Array<any> = [
-    { label: 'Entrada', data: this.datosGraficaEntradas},
+    { label: 'Entrada', data: new Array<number>(this.mainChartElements)},
   ];
   public coloresEntradas: Array<any> = [
     { // brandInfo
@@ -94,9 +95,8 @@ export class EstadisticasComponent implements OnInit
   ];
 
   // grafica de salida
-  public datosGraficaSalidas: Array<number> = new Array<number>(this.mainChartElements);
   public datasetSalidas: Array<any> = [
-    { label: 'Salidas', data: this.datosGraficaSalidas},
+    { label: 'Salidas', data: new Array<number>(this.mainChartElements)},
   ];
   public coloresSalidas: Array<any> = [
     { // brandSuccess
