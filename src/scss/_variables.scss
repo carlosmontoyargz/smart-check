@@ -2,16 +2,20 @@
 
 @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
 
+$font-family-sans-serif: 'Rubik', sans-serif;
+
+/*
 $font-family-sans-serif:
   // Safari for OS X and iOS (San Francisco)
   -apple-system,
     // Chrome < 56 for OS X (San Francisco)
-  Rubik,
+  Roboto Slab,
     // Windows
-  "Rubik",
+  "Roboto Slab", serif
     // Android
-  "Rubik",
+  "Roboto Slab", serif
     // Basic web fallback
-  "Rubik", sans-serif,
+  "Roboto Slab", serif,
     // Emoji fonts
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+*/

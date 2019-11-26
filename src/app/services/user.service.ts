@@ -38,7 +38,7 @@ export class UserService {
 		console.log('Entre a subir el usuario al web service');
 		user.rolNombre = "EMPLEADO";
 		return this.http.post(
-				`${environment.apiUrl}/${this.usersEndpoint}/registro`,
+				`${environment.appUrl}/registro`,
 				user);
 	}
 

@@ -19,9 +19,9 @@ import java.util.stream.Collectors
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/")
 @CrossOrigin("*")
-class EmpleadoController
+class RegistroController
 	@Autowired constructor(val usuarioService: UsuarioService,
 						   val modelMapper: ModelMapper)
 {

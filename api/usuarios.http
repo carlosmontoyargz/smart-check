@@ -39,12 +39,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYXZhaW51c2VAZ21haWwuY29tI
 
 ###
 
-POST http://localhost:8080/api/usuarios/registro
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDYwODQwNSwiaWF0IjoxNTc0NTkwNDA1fQ.azfUOMBti-bF--hqCAUvsotKAm0la1cUXdGXB1AwbKWBrWSZ2YlgB_g8G9-fc1s5ob-kh4iXvqhZ7ZhhZkk9Bw
+POST http://localhost:8080/registro
 Content-Type: application/json
 
 {
-  "username": "mario.anzures@outlook.com",
+  "username": "empleadox@gmail.com",
   "password": "noporolo",
   "rolNombre": "EMPLEADO"
 }
