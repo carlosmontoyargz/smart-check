@@ -22,8 +22,6 @@ class UsuarioServiceImpl
 			val passwordEncoder: PasswordEncoder)
 	: UsuarioService
 {
-	override fun obtenerTodos(): List<Usuario> = usuarioRepository.findAll()
-
 	override fun obtenerUsuario(id: Int) = usuarioRepository.findById(id)
 
 	override fun obtenerUsuario(username: String, password: String): Optional<Usuario> =

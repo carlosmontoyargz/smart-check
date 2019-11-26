@@ -8,9 +8,19 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/usuarios?page=1&projection=datos
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc1MDkwMCwiaWF0IjoxNTc0NzMyOTAwfQ.XI6DPe6r8v-2FgLsIMNoomnSSxSTD_aKRuqXMz-AHUmykOeGhUG218BrjB2YSfOBpY6Dy7dmLuD3qvPMIyFkvA
+POST http://localhost:8080/authenticate
+Content-Type: application/json
 
+{
+  "username": "mario.anzures@outlook.com",
+  "password": "noporolo"
+}
+
+###
+
+GET http://localhost:8080/api/usuarios?page=0&projection=datos
+#Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc1MDkwMCwiaWF0IjoxNTc0NzMyOTAwfQ.XI6DPe6r8v-2FgLsIMNoomnSSxSTD_aKRuqXMz-AHUmykOeGhUG218BrjB2YSfOBpY6Dy7dmLuD3qvPMIyFkvA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJpby5hbnp1cmVzQG91dGxvb2suY29tIiwiZXhwIjoxNTc0NzY1ODYyLCJpYXQiOjE1NzQ3NDc4NjJ9.Z-yVprm27QYcmuJnF-p57Wrqub6iOp8dBc3NPHhqb6QDj3HgFwxP9Ia52Kw8ulzuR2JEY99zu0Zx5JtqEM16og
 
 ###
 
