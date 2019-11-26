@@ -6,5 +6,5 @@ import java.util.*
 
 interface RolRepository: JpaRepository<Rol, Int>
 {
-	fun findByNombre(nombre: String): Optional<Rol>
+	fun findFirstByNombre(nombre: String): Optional<Rol>
 }

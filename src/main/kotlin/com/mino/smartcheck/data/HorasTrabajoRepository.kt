@@ -1,9 +1,11 @@
 package com.mino.smartcheck.data
 
 import com.mino.smartcheck.model.HorasTrabajo
+import com.mino.smartcheck.model.Usuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
+import org.springframework.data.rest.core.annotation.RestResource
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.format.annotation.DateTimeFormat.ISO
 import org.springframework.security.access.prepost.PreAuthorize
@@ -29,4 +31,8 @@ interface HorasTrabajoRepository: JpaRepository<HorasTrabajo, Int>
 			@DateTimeFormat(iso = ISO.DATE) inicio: LocalDate,
 			id: Int
 	): Optional<HorasTrabajo>
+
+	@RestResource(exported = false)
+	fun findFirstByFechaInicioAndUsuario(inicio: LocalDate, usuario: Usuario)
+			: Optional<HorasTrabajo>
 }

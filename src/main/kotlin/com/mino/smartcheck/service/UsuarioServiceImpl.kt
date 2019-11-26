@@ -1,12 +1,10 @@
 package com.mino.smartcheck.service
 
-import com.mino.smartcheck.data.HorasTrabajoRepository
 import com.mino.smartcheck.data.OrganizacionRepository
 import com.mino.smartcheck.data.RolRepository
 import com.mino.smartcheck.data.UsuarioRepository
 import com.mino.smartcheck.error.SignUpException
 import com.mino.smartcheck.model.Usuario
-import jdk.nashorn.internal.runtime.options.Option
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -35,10 +33,12 @@ class UsuarioServiceImpl
 		if (usuarioRepository.existsByUsername(usuario.username!!))
 			throw SignUpException("El usuario ya existe")
 
-		usuario.rol = rolRepository.findByNombre(usuario.rol?.nombre.toString())
+		usuario.rol = rolRepository
+				.findFirstByNombre(usuario.rol?.nombre.toString())
 				.orElseThrow { SignUpException("No existe el rol especificado") }
 
-		usuario.organizacion = organizacionRepository.findById(1)
+		usuario.organizacion = organizacionRepository
+				.findFirstBy()
 				.orElseThrow { RuntimeException("No existen datos de organizacion") }
 
 		usuario.password = passwordEncoder.encode(usuario.password)

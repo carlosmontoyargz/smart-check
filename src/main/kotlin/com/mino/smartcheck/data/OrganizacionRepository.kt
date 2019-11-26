@@ -11,4 +11,6 @@ import java.util.*
 interface OrganizacionRepository: JpaRepository<Organizacion, Int>
 {
 	fun findFirstByNombre(nombre: String): Optional<Organizacion>
+
+	fun findFirstBy(): Optional<Organizacion>
 }

@@ -31,6 +31,12 @@ class BeforeCheckSaveHandler
 	@HandleBeforeCreate
 	fun handleCheckSave(check: SmartCheck) {
 		asignarDatosCheck(check)
+		asignarHorasTrabajo(check)
+		actualizarEstadisticasTrabajo(check)
+	}
+
+	fun handleCheckSaveSinValidar(check: SmartCheck) {
+		asignarHorasTrabajoByCheck(check)
 		actualizarEstadisticasTrabajo(check)
 	}
 
@@ -46,6 +52,10 @@ class BeforeCheckSaveHandler
 			SALIDA -> check.empleado.organizacion!!.horaSalida
 			else -> null
 		}
+		check.asignarDiferenciaMinutos()
+	}
+
+	private fun asignarHorasTrabajo(check: SmartCheck) {
 		val firstDayMonth = check.creado.toLocalDate().withDayOfMonth(1)
 		check.horasTrabajo = horasTrabajoRepository
 				.findByFechaInicioAndPrincipal(firstDayMonth)
@@ -57,12 +67,24 @@ class BeforeCheckSaveHandler
 								firstDayMonth.lengthOfMonth())
 					}
 				}
-		check.asignarDiferenciaMinutos()
+	}
+
+	private fun asignarHorasTrabajoByCheck(check: SmartCheck) {
+		val firstDayMonth = check.creado.toLocalDate().withDayOfMonth(1)
+		check.horasTrabajo = horasTrabajoRepository
+				.findFirstByFechaInicioAndUsuario(firstDayMonth, check.empleado)
+				.orElseGet {
+					HorasTrabajo().apply {
+						usuario = check.empleado
+						fechaInicio = firstDayMonth
+						fechaFinal = firstDayMonth.withDayOfMonth(
+								firstDayMonth.lengthOfMonth())
+					}
+				}
 	}
 
 	private fun actualizarEstadisticasTrabajo(check: SmartCheck) {
 		// Se guardan las estadisticas
-		log.info("Inicia actualizacion de horas de trabajo")
 		if (check.tipo == ENTRADA) {
 			if (check.diferencia < 0) {
 				check.horasTrabajo.entradasTemprano +=
@@ -82,7 +104,8 @@ class BeforeCheckSaveHandler
 			}
 			// Se guardan las horas de trabajo
 			val chkEntrada = checkRepository
-					.findFirstByTipoOrderByCreadoDesc(ENTRADA)
+					.findFirstByTipoAndEmpleadoOrderByCreadoDesc(
+							ENTRADA, check.empleado)
 					.orElseThrow { val ex = RuntimeException("No hay check de entrada"); ex }
 			check.horasTrabajo.minutos += Duration
 					.between(chkEntrada.creado, check.creado).toMinutes()

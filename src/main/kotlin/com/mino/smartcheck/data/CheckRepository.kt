@@ -2,6 +2,7 @@ package com.mino.smartcheck.data
 
 import com.mino.smartcheck.model.SmartCheck
 import com.mino.smartcheck.model.TipoCheck
+import com.mino.smartcheck.model.Usuario
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
@@ -27,7 +28,8 @@ interface CheckRepository: JpaRepository<SmartCheck, Int>
 	fun findMyChecksFrom(@DateTimeFormat(iso = ISO.DATE) fecha: LocalDate)
 			: List<SmartCheck>
 
-	fun findFirstByTipoOrderByCreadoDesc(tipo: TipoCheck): Optional<SmartCheck>
+	fun findFirstByTipoAndEmpleadoOrderByCreadoDesc(tipo: TipoCheck, usuario: Usuario)
+			: Optional<SmartCheck>
 
 	fun findByCreadoGreaterThanEqual(@DateTimeFormat(iso = ISO.DATE_TIME) fecha: LocalDateTime)
 			: List<SmartCheck>
