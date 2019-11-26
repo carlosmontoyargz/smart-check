@@ -4,6 +4,8 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import {CheckService} from "../../services/check.service";
 import {DatePipe} from "@angular/common";
 import {HorasTrabajoService} from "../../services/horasTrabajo.service";
+import { ActivatedRoute } from '@angular/router';
+import {UserService} from "../../services/user.service";
 
 @Component({
 	templateUrl: 'estadisticas.component.html'
@@ -11,7 +13,9 @@ import {HorasTrabajoService} from "../../services/horasTrabajo.service";
 export class EstadisticasComponent implements OnInit
 {
 	constructor(private checkService: CheckService,
-              private horasService: HorasTrabajoService) {}
+              private horasService: HorasTrabajoService,
+              private usuarioService: UserService,
+              private route: ActivatedRoute) {}
 
   mesActual = new DatePipe('en-US').transform(new Date(), "MMMM y");
   entradasTemprano: string;
@@ -20,41 +24,51 @@ export class EstadisticasComponent implements OnInit
   horasExtra: string;
 
 	ngOnInit() {
-	  this.horasService
-      .obtenerHorasActuales().toPromise()
-      .then(horas => {
-        console.log("Se han descargado las horas del mes");
-        console.log(horas);
-        this.entradasTemprano = EstadisticasComponent.parseMinutes(horas.entradasTemprano);
-        this.retrasos = EstadisticasComponent.parseMinutes(horas.retrasos);
-        this.salidasTemprano = EstadisticasComponent.parseMinutes(horas.salidasTemprano);
-        this.horasExtra = EstadisticasComponent.parseMinutes(horas.extras);
-
-        return this.checkService
-          .obtenerChecksDe(horas._links.checks.href).toPromise();
-      })
-      .then(checks => {
-        console.log("Se han descargado los checks del periodo");
-        console.log(checks);
-        this.datosGraficaEntradas.fill(0);
-        for (let i = 0; i < this.mainChartElements; i++) {
-          let entrada = checks
-            .filter(v => v.tipo === 'ENTRADA' && i + 1 === new Date(v.creado).getDate())
-            .pop();
-          if (entrada) { this.datosGraficaEntradas[i] = entrada.diferencia }
-        }
-        this.datosGraficaSalidas.fill(0);
-        for (let i = 0; i < this.mainChartElements; i++) {
-          let salida = checks
-            .filter(v => v.tipo === 'SALIDA' && i + 1 === new Date(v.creado).getDate())
-            .pop();
-          if (salida) { this.datosGraficaSalidas[i] = salida.diferencia }
-        }
-        console.log(this.datosGraficaEntradas);
-        console.log(this.datosGraficaSalidas);
-        return 1;
-      })
-      .catch(e => { console.error(e) });
+    this.route.queryParamMap.subscribe(params => {
+      console.log(params);
+      Promise.resolve(1)
+        .then(value => {
+          console.log(value);
+          let id = params.get('id');
+          if (id === null)
+            return this.horasService.obtenerHorasActuales().toPromise();
+          else
+            return this.horasService.obtenerHorasUsuario(id).toPromise();
+        })
+        .then(horas => {
+          console.log("Se han descargado las horas del mes");
+          console.log(horas);
+          this.entradasTemprano = EstadisticasComponent.parseMinutes(horas.entradasTemprano);
+          this.retrasos = EstadisticasComponent.parseMinutes(horas.retrasos);
+          this.salidasTemprano = EstadisticasComponent.parseMinutes(horas.salidasTemprano);
+          this.horasExtra = EstadisticasComponent.parseMinutes(horas.extras);
+          return this.checkService
+            .obtenerChecksDe(horas._links.checks.href)
+            .toPromise();
+        })
+        .then(checks => {
+          console.log("Se han descargado los checks del periodo");
+          console.log(checks);
+          this.datosGraficaEntradas.fill(0);
+          for (let i = 0; i < this.mainChartElements; i++) {
+            let entrada = checks
+              .filter(v => v.tipo === 'ENTRADA' && i + 1 === new Date(v.creado).getDate())
+              .pop();
+            if (entrada) { this.datosGraficaEntradas[i] = entrada.diferencia }
+          }
+          this.datosGraficaSalidas.fill(0);
+          for (let i = 0; i < this.mainChartElements; i++) {
+            let salida = checks
+              .filter(v => v.tipo === 'SALIDA' && i + 1 === new Date(v.creado).getDate())
+              .pop();
+            if (salida) { this.datosGraficaSalidas[i] = salida.diferencia }
+          }
+          console.log(this.datosGraficaEntradas);
+          console.log(this.datosGraficaSalidas);
+          return 1;
+        })
+        .catch(e => { console.info(e) });
+    });
 	}
 
   private static parseMinutes(min: number): string {

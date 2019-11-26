@@ -2,8 +2,8 @@ POST http://localhost:8080/authenticate
 Content-Type: application/json
 
 {
-  "username": "carlos.montoya.rdgz@gmail.com",
-  "password": "sipirili"
+  "username": "mario.anzures@outlook.com",
+  "password": "noporolo"
 }
 
 ###
@@ -19,11 +19,16 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6Q
 ###
 
 GET http://localhost:8080/api/horasTrabajo/search/findByFechaInicioAndPrincipal?inicio=2019-11-01
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDY2MTgwNywiaWF0IjoxNTc0NjQzODA3fQ.h37XaZUJOZyn1kdhWn8ul4fywKPKW9fGBu7XmIPJ-TRnyb4zu55_XNbvauCSOsKKZnfM6ZhiQL5ILMOWQAX-Sw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc1MDkwMCwiaWF0IjoxNTc0NzMyOTAwfQ.XI6DPe6r8v-2FgLsIMNoomnSSxSTD_aKRuqXMz-AHUmykOeGhUG218BrjB2YSfOBpY6Dy7dmLuD3qvPMIyFkvA
 
 ###
 
 GET http://localhost:8080/api/horasTrabajo/search/findTotal?field=retrasos
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDY4MDI3MCwiaWF0IjoxNTc0NjYyMjcwfQ.dnrWqYCngkk9ifakW1x9XFAf_-_RA4D0tlUJSXacm9XXikFWB4x3QRg2CBUCYXSkY8KjHJvsj4lFFgvpqFq9TA
+
+###
+
+GET http://localhost:8080/api/horasTrabajo/search/findFirstByFechaInicioAndUsuarioId?inicio=2019-11-01&id=59
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc1MDkwMCwiaWF0IjoxNTc0NzMyOTAwfQ.XI6DPe6r8v-2FgLsIMNoomnSSxSTD_aKRuqXMz-AHUmykOeGhUG218BrjB2YSfOBpY6Dy7dmLuD3qvPMIyFkvA
 
 ###

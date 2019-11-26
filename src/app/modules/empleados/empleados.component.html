@@ -17,47 +17,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let usuario of usuarios">
               <td>
-                <a [routerLink]="['/empleados/estadisticas']"
-                     [queryParams]="{id: '1'}">
-                  Vishnu Serghei
+                <a [routerLink]="['/estadisticas']"
+                   [queryParams]="{id: usuario.id}">
+                  {{usuario.username}}
                 </a>
               </td>
-              <td>2012/01/01</td>
-              <td>Member</td>
-              <td>
-                <span class="badge badge-success">Active</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Zbyněk Phoibos</td>
-              <td>2012/02/01</td>
-              <td>Staff</td>
-              <td>
-                <span class="badge badge-danger">Banned</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Einar Randall</td>
-              <td>2012/02/01</td>
-              <td>Admin</td>
-              <td>
-                <span class="badge badge-secondary">Inactive</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Félix Troels</td>
-              <td>2012/03/01</td>
-              <td>Member</td>
-              <td>
-                <span class="badge badge-warning">Pending</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Aulus Agmundr</td>
-              <td>2012/01/21</td>
-              <td>Staff</td>
+              <td>{{usuario.creado}}</td>
+              <td>{{usuario.rolNombre}}</td>
               <td>
                 <span class="badge badge-success">Active</span>
               </td>

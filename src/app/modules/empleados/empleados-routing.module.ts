@@ -9,7 +9,16 @@ const routes: Routes = [
     component: EmpleadosComponent,
     data: {
       title: 'Empleados'
-    }
+    },
+    /*children: [
+      {
+        path: 'estatisticas',
+        component: EstadisticasComponent,
+        data: {
+          title: 'Estadisticas individuales'
+        }
+      },
+    ]*/
   },
 ];
 

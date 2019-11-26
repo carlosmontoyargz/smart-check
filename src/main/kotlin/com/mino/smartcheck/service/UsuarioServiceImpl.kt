@@ -1,5 +1,6 @@
 package com.mino.smartcheck.service
 
+import com.mino.smartcheck.data.HorasTrabajoRepository
 import com.mino.smartcheck.data.OrganizacionRepository
 import com.mino.smartcheck.data.RolRepository
 import com.mino.smartcheck.data.UsuarioRepository

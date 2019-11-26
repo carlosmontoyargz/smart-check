@@ -1,6 +1,7 @@
 // Angular
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {ChartsModule} from "ng2-charts";
 import { NgModule } from '@angular/core';
 
 
@@ -18,6 +19,7 @@ import {EmpleadosComponent} from "./empleados.component";
   imports: [
     CommonModule,
     FormsModule,
+    ChartsModule,
     EmpleadosRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule,

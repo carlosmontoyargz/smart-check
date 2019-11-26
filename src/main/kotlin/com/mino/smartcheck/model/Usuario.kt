@@ -30,8 +30,4 @@ class Usuario
 
 //	@CreatedDate
 	var creado: LocalDateTime? = LocalDateTime.now()
-
-	override fun toString(): String {
-		return "Usuario(id=$id, username=$username, password=$password, rol=$rol, organizacion=$organizacion)"
-	}
 }

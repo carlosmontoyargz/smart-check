@@ -8,8 +8,8 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/usuarios?projection=datos&
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDY5NjE3OSwiaWF0IjoxNTc0Njc4MTc5fQ.urpTt1dAimvnYsCN9Ebb2OMKOJfu5jc2uE6wJ3gV-6AOADzHqhSvpCEUUVsnFuHo7p-Eec8UCYAAVLIq5la_Nw
+GET http://localhost:8080/api/usuarios?page=1&projection=datos
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc1MDkwMCwiaWF0IjoxNTc0NzMyOTAwfQ.XI6DPe6r8v-2FgLsIMNoomnSSxSTD_aKRuqXMz-AHUmykOeGhUG218BrjB2YSfOBpY6Dy7dmLuD3qvPMIyFkvA
 
 
 ###

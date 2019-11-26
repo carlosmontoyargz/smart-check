@@ -26,6 +26,34 @@ export class HorasTrabajoService
       });
   }
 
+  obtenerHorasUsuario(id: string) {
+    return this.http.get<HorasTrabajo>(
+      `${environment.apiUrl}/horasTrabajo/search/findFirstByFechaInicioAndUsuarioId`,
+      {
+        params: {
+          "inicio": HorasTrabajoService.parseFirstDayOfCurrentMonth(),
+          "id": id,
+        }
+      });
+  }
+
+  obtenerHorasActualesId(id: string) {
+    console.log(id);
+    let url = '';
+    if (id === null) {
+      url = `${environment.apiUrl}/horasTrabajo/search/findByFechaInicioAndPrincipal`
+    }
+    else {
+      url = `${environment.apiUrl}/horasTrabajo/search/findByFechaInicioAndUsuarioId`
+    }
+    return this.http.get<HorasTrabajo>(url,
+      {
+        params: {
+          "inicio": HorasTrabajoService.parseFirstDayOfCurrentMonth()
+        }
+      });
+  }
+
   obtenerTotal(field: string) {
     return this.http.get<number>(
       `${environment.apiUrl}/horasTrabajo/search/findTotal`,

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.format.annotation.DateTimeFormat.ISO
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.CrossOrigin
 import java.time.LocalDate
 import java.util.*
@@ -23,7 +24,9 @@ interface HorasTrabajoRepository: JpaRepository<HorasTrabajo, Int>
 	fun findByFechaInicioAndPrincipal(
 			@DateTimeFormat(iso = ISO.DATE) inicio: LocalDate): Optional<HorasTrabajo>
 
-//	@Query("SELECT SUM(tt.minutos) " +
-//			"FROM HorasTrabajo tt WHERE tt.checkEntrada.fecha >= :desde")
-//	fun findTotalMinutosTrabajados(desde: LocalDate): Int
+	@PreAuthorize("hasRole('ADMIN')")
+	fun findFirstByFechaInicioAndUsuarioId(
+			@DateTimeFormat(iso = ISO.DATE) inicio: LocalDate,
+			id: Int
+	): Optional<HorasTrabajo>
 }

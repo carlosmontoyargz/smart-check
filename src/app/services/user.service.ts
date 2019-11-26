@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../models/user";
 import {environment} from "../../environments/environment";
+import {map} from "rxjs/operators";
 
 /**
  * The user service contains a standard set of CRUD methods for managing users,
@@ -14,10 +15,17 @@ export class UserService {
 
 	public readonly usersEndpoint = 'usuarios';
 
-	getAll() {
+	getAll(page: number) {
 		return this.http.get<User[]>(
 				`${environment.apiUrl}/${this.usersEndpoint}`,
-				{ params: { "projection": "datos" }});
+				{
+				  params: {
+				    "page": page.toString(),
+				    "projection": "datos"
+				  }
+				})
+      .pipe(map<any, User[]>(r => { return r._embedded.usuarios }))
+      ;
 	}
 
 	get(id: number) {

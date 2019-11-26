@@ -31,9 +31,4 @@ interface CheckRepository: JpaRepository<SmartCheck, Int>
 
 	fun findByCreadoGreaterThanEqual(@DateTimeFormat(iso = ISO.DATE_TIME) fecha: LocalDateTime)
 			: List<SmartCheck>
-
-	/*@Query("SELECT SUM(sc.diferenciaMinutos) " +
-			"FROM SmartCheck sc " +
-			"WHERE sc.diferencia > 0 AND sc.tipo = :tipo")
-	fun findTotalPositivo(tipo: TipoCheck): Int*/
 }
