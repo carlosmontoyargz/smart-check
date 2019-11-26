@@ -47,17 +47,7 @@ export const navItemsAdmin: NavData[] = [
 ];
 
 export const navItems: NavData[] = [
-	{
-		name: 'Dashboard',
-		url: '/dashboard',
-		icon: 'icon-speedometer',
-		badge: {
-			variant: 'info',
-			text: 'NEW'
-		}
-	},
-
-	{ title: true, name: 'EMPLEADO'},
+	{ title: true, name: 'Menu'},
 	{
 		name: 'Check',
 		url: '/check',
@@ -68,8 +58,6 @@ export const navItems: NavData[] = [
 		url: '/estadisticas',
 		icon: 'icon-graph'
 	},
-
-  { title: true, name: 'ADMIN'},
   {
     name: 'Organizacion',
     url: '/organizacion',
@@ -80,9 +68,8 @@ export const navItems: NavData[] = [
     url: '/empleados',
     icon: 'cui-people'
   },
-
-	{ title: true, name: 'Theme' },
-	{
+	/*{ title: true, name: 'Theme' },*/
+	/*{
 		name: 'Colors',
 		url: '/theme/colors',
 		icon: 'icon-drop'
@@ -309,5 +296,5 @@ export const navItems: NavData[] = [
 		icon: 'icon-layers',
 		variant: 'danger',
 		attributes: {target: '_blank', rel: 'noopener'}
-	}
+	}*/
 ];
