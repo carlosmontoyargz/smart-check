@@ -9,6 +9,22 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/api/organizaciones/search/findFirstByNombre?nombre=BUAP
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDY4ODA2NiwiaWF0IjoxNTc0NjcwMDY2fQ.Bpu9gSfc-2btUe53HrAOWNC_ssQ6_AbwuDAbEF6unQN7PuXrCRPXL_3a2kJp9BuR7rNpUgH2c6a2-BpgSndYLg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc2MDY0OSwiaWF0IjoxNTc0NzQyNjQ5fQ.qwy6YcXpj98GATpTLgNqZ8ro4ULs8YvNUek7O08flCvsJ2FtFikmBOJ4p9HtGgpphwGCzMkRH2olUU3JNfajgQ
+
+###
+
+GET http://localhost:8080/api/organizaciones/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc1ODE1NSwiaWF0IjoxNTc0NzQwMTU1fQ._5CP8UHogOoxnrD7N2ZMfunZwvOeMn-LA6ID0Vpri5OE1Q0tUNq4Z8FNZpywGsvK_z1GXeP3P1-YU2bHsARA0g
+
+###
+
+PATCH http://localhost:8080/api/organizaciones/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3MubW9udG95YS5yZGd6QGdtYWlsLmNvbSIsImV4cCI6MTU3NDc1ODE1NSwiaWF0IjoxNTc0NzQwMTU1fQ._5CP8UHogOoxnrD7N2ZMfunZwvOeMn-LA6ID0Vpri5OE1Q0tUNq4Z8FNZpywGsvK_z1GXeP3P1-YU2bHsARA0g
+Content-Type: application/json
+
+{
+  "horaEntrada": "08:06:00",
+  "horaSalida": "16:10:00"
+}
 
 ###

@@ -4,13 +4,15 @@ import {CheckService} from "../../services/check.service";
 import {SmartCheck} from "../../models/smart-check";
 import {AuthenticationService} from "../../services/authentication.service";
 import {User} from "../../models/user";
+import {OrganizacionService} from "../../services/organizacion.service";
 
 @Component({
 	templateUrl: 'check.component.html'
 })
 export class CheckComponent implements OnInit {
 	constructor(private checkService: CheckService,
-				private authenticationService: AuthenticationService) {}
+              private authenticationService: AuthenticationService,
+              private organizacionService: OrganizacionService) {}
 
 	public tipoCheck = '';
 	public checkDisabled = true;
@@ -18,41 +20,49 @@ export class CheckComponent implements OnInit {
 	public horaSalida = '';
 	public usuario: User;
 
+	orgHoraEntrada: string = '';
+	orgHoraSalida: string = '';
+
 	ngOnInit(): void {
 		this.usuario = this.authenticationService.currentUserValue;
-		this.checkService.obtenerChecksDeHoy().subscribe(
-			checks => {
-				console.log("Los checks de hoy se han descargado correctamente");
-				console.log(checks);
+		this.organizacionService
+      .obtenerOrganizacion(this.usuario.organizacionNombre)
+      .subscribe(org => {
+        this.orgHoraEntrada = org.horaEntrada;
+        this.orgHoraSalida = org.horaSalida;
+        this.checkService.obtenerChecksDeHoy().subscribe(
+          checks => {
+            console.log("Los checks de hoy se han descargado correctamente");
+            console.log(checks);
+            if (checks.length > 0) {
+              let checkEntrada = checks.filter(r => r.tipo === 'ENTRADA').pop();
+              if (checkEntrada) {
+                this.horaEntrada = new Date(checkEntrada.creado).toTimeString().split(' ')[0];
+                this.tipoCheck = 'SALIDA';
+                this.checkDisabled = false;
+              }
+              else { this.tipoCheck = 'ENTRADA' }
 
-				if (checks.length > 0) {
-					let checkEntrada = checks.filter(r => r.tipo === 'ENTRADA').pop();
-					if (checkEntrada) {
-						this.horaEntrada = new Date(checkEntrada.creado).toTimeString().split(' ')[0];
-						this.tipoCheck = 'SALIDA';
-						this.checkDisabled = false;
-					}
-					else { this.tipoCheck = 'ENTRADA' }
-
-					let checkSalida = checks.filter(r => r.tipo === 'SALIDA').pop();
-					if (checkSalida) {
-						this.horaSalida = new Date(checkSalida.creado).toTimeString().split(' ')[0];
-						this.tipoCheck = '';
-						this.checkDisabled = true;
-					}
-					else { this.checkDisabled = false }
-				}
-				else {
-					this.tipoCheck = 'ENTRADA';
-					this.checkDisabled = false
-				}
-			},
-			error => {
-				console.log("Ocurrio un error al descargar los checks");
-				console.log(error);
-				this.checkDisabled = false;
-			}
-		);
+              let checkSalida = checks.filter(r => r.tipo === 'SALIDA').pop();
+              if (checkSalida) {
+                this.horaSalida = new Date(checkSalida.creado).toTimeString().split(' ')[0];
+                this.tipoCheck = '';
+                this.checkDisabled = true;
+              }
+              else { this.checkDisabled = false }
+            }
+            else {
+              this.tipoCheck = 'ENTRADA';
+              this.checkDisabled = false
+            }
+          },
+          error => {
+            console.log("Ocurrio un error al descargar los checks");
+            console.log(error);
+            this.checkDisabled = false;
+          }
+        );
+      });
 	}
 
 	enviarCheck() {

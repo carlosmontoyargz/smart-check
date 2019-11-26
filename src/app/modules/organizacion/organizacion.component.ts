@@ -3,6 +3,8 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {HorasTrabajoService} from "../../services/horasTrabajo.service";
 import {OrganizacionService} from "../../services/organizacion.service";
 import { ModalDirective } from 'ngx-bootstrap';
+import {Organizacion} from "../../models/smart-check";
+import { FormGroup, Validators, FormBuilder , FormControl} from '@angular/forms';
 
 @Component({
 	templateUrl: 'organizacion.component.html'
@@ -11,7 +13,8 @@ export class OrganizacionComponent implements OnInit {
 
 	constructor(private authenticationService: AuthenticationService,
               private organizacionService: OrganizacionService,
-              private horasTrabajoService: HorasTrabajoService) {}
+              private horasTrabajoService: HorasTrabajoService,
+              private formBuilder: FormBuilder) {}
 
 	user = this.authenticationService.currentUserValue;
 
@@ -22,17 +25,28 @@ export class OrganizacionComponent implements OnInit {
 	totalRetrasos = '';
 	totalEntradasTemprano = '';
 	totalSalidasTemprano = '';
-  organizacion: string = '';
-  orgHoraEntrada: string = '';
-  orgHoraSalida: string = '';
+  organizacionStr: string = '';
+
+  organizacion: Organizacion;
+
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+
+  horaEntrada = new FormControl('');
+  horaSalida = new FormControl('');
+  horaEntradaStr = '';
+  horaSalidaStr = '';
 
 	ngOnInit(): void {
-	  this.organizacion = this.authenticationService.currentUserValue.organizacionNombre;
 	  this.organizacionService
-      .obtenerOrganizacion(this.organizacion)
+      .obtenerOrganizacion(this.authenticationService.currentUserValue.organizacionNombre)
       .subscribe(org => {
-        this.orgHoraEntrada = org.horaEntrada;
-        this.orgHoraSalida = org.horaSalida;
+        console.log("organizacion");
+        console.log(org);
+        this.organizacion = org;
+        this.horaEntradaStr = org.horaEntrada;
+        this.horaSalidaStr = org.horaSalida;
       });
 
 	  this.horasTrabajoService
@@ -69,16 +83,34 @@ export class OrganizacionComponent implements OnInit {
     return `${String(horas)}:${String(minutes).padStart(2, '0')}`
   }
 
-  enviarEvaluacion() {
-    // this.respuestasCorrectas = this.calcularRespuestasCorrectas();
-    // let p = new Puntaje();
-    // p.leccion = this.leccion._links.self.href;
-    // p.usuario = this.authenticationService.currentUserValue.username;
-    // p.puntaje = this.respuestasCorrectas;
-    // this.puntajeService.postPuntaje(p).subscribe(
-    //   data => { this.successModal.show() },
-    //   error => { console.log(error)}
-    //);
-    this.successModal.hide();
+  mostrarModal() {
+    this.successModal.show();
+    this.horaEntrada.setValue(this.horaEntradaStr);
+    this.horaSalida.setValue(this.horaSalidaStr);
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.loading = true;
+
+    let body = {
+      "horaEntrada": this.horaEntrada.value.toString(),
+      "horaSalida": this.horaSalida.value.toString(),
+    };
+    if (body.horaEntrada === '') body.horaEntrada = this.horaEntradaStr;
+    if (body.horaSalida === '') body.horaSalida = this.horaSalidaStr;
+
+    this.organizacionService
+      .patchOrganizacion(this.organizacion, body)
+      .subscribe(response => {
+        this.organizacion.horaEntrada = body.horaEntrada;
+        this.horaEntradaStr = body.horaEntrada;
+
+        this.organizacion.horaSalida = body.horaSalida;
+        this.horaSalidaStr = body.horaSalida;
+
+        this.loading = false;
+        this.successModal.hide();
+      }, error => { console.log(error); this.loading = false });
   }
 }

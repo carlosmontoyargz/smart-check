@@ -8,6 +8,4 @@ export class User {
 	rolNombre: string;
 	token: string;
 	organizacionNombre: string;
-	organizacionHoraEntrada: string;
-	organizacionHoraSalida: string;
 }

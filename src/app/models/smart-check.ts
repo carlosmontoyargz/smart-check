@@ -21,4 +21,5 @@ export class Organizacion {
   nombre: string;
   horaEntrada: string;
   horaSalida: string;
+  _links: any;
 }

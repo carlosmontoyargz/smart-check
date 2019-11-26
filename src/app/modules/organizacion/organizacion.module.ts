@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import {OrganizacionComponent} from "./organizacion.component";
 import {OrganizacionRoutingModule} from "./organizacion.routing.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 // Modal Component
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -12,6 +13,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 	imports: [
 		CommonModule,
 		OrganizacionRoutingModule,
+    ReactiveFormsModule,
 		BsDropdownModule.forRoot(),
     ModalModule.forRoot()
 	],

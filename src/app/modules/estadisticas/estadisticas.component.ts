@@ -69,7 +69,15 @@ export class EstadisticasComponent implements OnInit
           console.log(this.datasetSalidas[0].data);
           return 1;
         })
-        .catch(e => { console.info(e) });
+        .catch(e => {
+          console.info(e);
+          this.entradasTemprano = "00:00";
+          this.retrasos = "00:00";
+          this.salidasTemprano = "00:00";
+          this.horasExtra = "00:00";
+          this.datasetEntradas[0].data = new Array<number>(this.mainChartElements).fill(0);
+          this.datasetSalidas[0].data = new Array<number>(this.mainChartElements).fill(0);
+        });
     });
 	}
 

@@ -6,12 +6,12 @@
           <i class="fa cui-briefcase"></i> Organizacion
         </div>
         <div class="card-body">
-          <h2>{{organizacion}}</h2>
+          <h2>{{organizacionStr}}</h2>
           <div class="form-group row">
             <label class="col-md-6 col-form-label" for="disabled-input-1">Hora entrada</label>
             <div class="col-md-6">
               <input type="text" id="disabled-input-1" name="disabled-input" class="form-control"
-                     placeholder="{{orgHoraEntrada}}"
+                     placeholder="{{horaEntradaStr}}"
                      disabled>
             </div>
           </div>
@@ -19,7 +19,7 @@
             <label class="col-md-6 col-form-label" for="disabled-input-2">Hora salida</label>
             <div class="col-md-6">
               <input type="text" id="disabled-input-2" name="disabled-input" class="form-control"
-                     placeholder="{{orgHoraSalida}}"
+                     placeholder="{{horaSalidaStr}}"
                      disabled>
             </div>
           </div>
@@ -83,23 +83,57 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group row">
-          <label class="col-md-6 col-form-label" for="disabled-input-3">Hora entrada</label>
-          <div class="col-md-6">
-            <input type="text" id="disabled-input-3" name="entrada" class="form-control"
-                   value="{{orgHoraEntrada}}">
-          </div>
+
+        <!--[formGroup]="organizacionForm"-->
+        <div class="input-group mb-3">
+          <label>
+            Hora de entrada nueva:
+            <input type="text"
+                   [formControl] = "horaEntrada"
+                   class="form-control"
+                   placeholder="Hora entrada"
+                   value="{{horaEntradaStr}}"
+                   [ngClass]="{ 'is-invalid': submitted }"
+                   required>
+          </label>
+          <!--<div *ngIf="submitted && f.username.errors">
+            <div *ngIf="f.username.errors.required">
+              <alert type="danger">
+                <strong>Oh no!</strong> El correo es requerido
+              </alert>
+            </div>
+          </div>-->
         </div>
-        <div class="form-group row">
-          <label class="col-md-6 col-form-label" for="disabled-input-4">Hora salida</label>
-          <div class="col-md-6">
-            <input type="text" id="disabled-input-4" name="salida" class="form-control"
-                   value="{{orgHoraSalida}}">
-          </div>
+        <div class="input-group mb-4">
+          <label>
+            Hora de salida nueva:
+            <input type="text"
+                   [formControl] = "horaSalida"
+                   class="form-control"
+                   placeholder="Hora salida"
+                   value="{{horaSalidaStr}}"
+                   [ngClass]="{ 'is-invalid': submitted }"
+                   required>
+          </label>
+          <!--<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>-->
         </div>
-        <button type="button" class="btn btn-info mr-1" data-toggle="modal" (click)="enviarEvaluacion()">
-          Enviar
-        </button>
+        <div class="row">
+          <div class="col-6">
+            <button [disabled]="loading"
+                    (click)="onSubmit()"
+                    class="btn btn-primary px-4">
+              Guardar
+            </button>
+          </div>
+          <!--
+          <div class="col-6 text-right">
+            <button type="button" class="btn btn-link px-0">Forgot password?</button>
+          </div>
+          -->
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Cerrar</button>

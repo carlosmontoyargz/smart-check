@@ -20,4 +20,10 @@ export class OrganizacionService
       `${environment.apiUrl}/organizaciones/search/findFirstByNombre`,
       { params: { nombre: orgNombre } });
   }
+
+  patchOrganizacion(organizacion: Organizacion, body: any) {
+    console.log(`Se enviara PATCH de ${organizacion._links.self.href} con cuerpo:`);
+    console.log(body);
+    return this.http.patch(organizacion._links.self.href, body)
+  }
 }
